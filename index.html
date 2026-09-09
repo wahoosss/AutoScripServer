@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--
+    Deployable merged document (English): Privacy Policy + Terms of Service in one page, loaded remotely
+    by AgreementActivity's WebView (matches policy_url_en in strings.xml, default …/policy/combined_en.html).
+    This is the source of the copy that goes on the public host, not an assets-local file; edit here and redeploy.
+
+    Maintenance rule:
+    - This app is free and ad-financed and it does use the network; ads and diagnostics are stated in the present tense,
+      third-party SDKs are disclosed on this page;
+    - combined.html (Chinese) is the AUTHORITATIVE wording and this file mirrors it section by section — when the Chinese
+      changes, update this English file in the same commit, never half of it;
+    - whenever a new data processor (ad / analytics SDK) is actually integrated, add its name, data scope and official
+      privacy-policy link here (and in combined.html) BEFORE deploying the release.
+    - Palette follows the app's dark theme (ui_bg_window #121212 / ui_text_primary #FFFFFF / ui_primary #4CAF50).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy Policy &amp; Terms of Service</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0;
+    padding: 20px 16px 40px;
+    background: #121212;
+    color: #FFFFFF;
+    font-size: 15px;
+    line-height: 1.75;
+    -webkit-text-size-adjust: 100%;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 26px 0 6px; }
+  h3 { font-size: 15px; margin: 18px 0 4px; }
+  p, li { color: #DDDDDD; margin: 8px 0; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  .meta { color: #AAAAAA; font-size: 13px; margin: 0 0 18px; }
+  .note {
+    margin: 18px 0 0;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #1C1F22;
+    color: #AAAAAA;
+    font-size: 13px;
+  }
+  strong { color: #4CAF50; }
+  a { color: #4CAF50; }
+  /* in-page navigation: jump to the start of each document */
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin: 14px 0 26px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #1C1F22;
+    font-size: 14px;
+  }
+  .nav a { text-decoration: none; }
+  /* big title per document; the underline separates the two documents */
+  .doc-title {
+    font-size: 18px;
+    margin: 34px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2A2E32;
+  }
+  .doc-title, h2, h3 { scroll-margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy &amp; Terms of Service</h1>
+<p class="meta">Product: AutoScrip (this app) | This app <strong>requires a network connection</strong></p>
+
+<nav class="nav">
+  <a href="#privacy">Privacy Policy</a>
+  <a href="#terms">Terms of Service</a>
+</nav>
+
+<!-- ============================ Part 1: Privacy Policy ============================ -->
+<h2 class="doc-title" id="privacy">Privacy Policy</h2>
+<p class="meta">Effective: September 2026 | Product: AutoScrip (this app) | This app <strong>requires a network connection</strong></p>
+
+<p>AutoScrip is an on-device UI automation tool. It is offered <strong>free of charge and financed by advertising</strong>:
+the app connects to the network to load ads and to report the minimal diagnostics needed to keep it running.
+Please read this policy before use; continuing to use the app means you accept it.</p>
+
+<h2>1. What we collect and why</h2>
+
+<h3>1.1 Script data: stays on your device</h3>
+<p>The taps and swipes you mark, their coordinates, durations, start delays, loop counts, plus the script name and
+description you type yourself, are written to the <strong>app-private storage</strong> of your device. They are
+<strong>never uploaded</strong> and are never used to target ads. Uninstalling the app deletes them.</p>
+
+<h3>1.2 Data required to serve ads and keep the app working</h3>
+<p>To load ads, measure feature availability and diagnose crashes, we collect:</p>
+<ul>
+  <li><strong>Device and app information</strong>: model, brand, OS version, screen resolution and density, app version, language and region;</li>
+  <li><strong>Network information</strong>: connection type (Wi-Fi / cellular), coarse region derived from the IP address (the full IP is not stored);</li>
+  <li><strong>Advertising identifier</strong>: the device advertising identifier used for ad delivery and attribution. You can reset or disable it in system settings;</li>
+  <li><strong>Usage and diagnostic information</strong>: how often features are used, success/failure result codes of script runs, crash stacks and where they happened.</li>
+</ul>
+<p>None of the above includes your contacts, SMS, call logs, photo library or precise location, and it never includes
+passwords or payment details you type into other apps.</p>
+
+<h3>1.3 Advertising</h3>
+<p>Ads shown in the app are provided and placed by third-party ad platforms. For frequency capping, attribution and
+fraud detection, the ad SDK processes the device and network data listed in 1.2 under its own privacy policy.
+Ad content <strong>does not read</strong> your scripts or coordinates.</p>
+
+<h3>1.4 How third-party SDKs are disclosed</h3>
+<p>Every advertising or analytics SDK integrated into this app is listed on this page — name, data scope and a link to
+its official privacy policy — before it ships in a release.
+<strong>A third party that does not appear on this page is not running inside this app.</strong> List updates are published together with the app version.</p>
+
+<h2>2. The accessibility permission and what it can see</h2>
+<p>AutoScrip needs the system Accessibility service permission in order to read widget labels and to perform taps and
+swipes at the positions you set. This permission:</p>
+<ul>
+  <li>is granted by you in system settings and can be revoked there at any time; once it is off, all automation stops immediately;</li>
+  <li>is used only to run <strong>the scripts you composed yourself</strong>; the app does not browse, record or upload the content of other apps on its own;</li>
+  <li>is not used to recognise, log or upload sensitive content such as passwords or payment information that you enter in other apps.</li>
+</ul>
+<p class="note">Recommendation: do not run automation on pages involving payments, banking or identity verification.
+Script coordinates are stored on your device — keep that in mind when you share the device or restore a backup.</p>
+
+<h2>3. Storage, sharing and protection</h2>
+<ul>
+  <li><strong>Where and how long</strong>: on-device data lives in app-private storage; data reported over the network is kept on the server for at most 12 months, then deleted or anonymised;</li>
+  <li><strong>Transport security</strong>: all network requests use HTTPS, and ad or analytics requests never carry your script content;</li>
+  <li><strong>Scope of sharing</strong>: we share data with third parties only as far as advertising, analytics and troubleshooting require, and we do not sell your personal information. We may disclose data where the law compels us to, and we will notify you where that is permitted;</li>
+  <li><strong>Cross-border transfers</strong>: if a third-party service involves transfers outside your region, we will state it separately on this page when it is integrated and ask for your consent.</li>
+</ul>
+
+<h2>4. Your controls</h2>
+<ul>
+  <li>Delete individual scripts inside the app, or clear all local data via “Settings → Apps → Storage → Clear data”;</li>
+  <li>Revoke the accessibility permission at any time in system settings;</li>
+  <li>Reset or disable the device advertising identifier to opt out of interest-based ads (you will still see ads, just not personalised ones);</li>
+  <li>Blocking network access for this app in system settings prevents ads from loading and diagnostics from being reported; your local scripts keep working.</li>
+</ul>
+
+<h2>5. Minors</h2>
+<p>This app is intended for adult users. If a minor uses it, do so with the knowledge and consent of a guardian.
+We do not run personalised advertising aimed at minors.</p>
+
+<h2>6. Changes to this policy</h2>
+<p>When functionality or data processing changes, we update this page and show the latest version in the app.
+Anything that adds data collection, adds a third party or changes a purpose will be highlighted before it takes effect.</p>
+
+<h2>7. Contact</h2>
+<p>For questions about this policy, or to exercise your rights of access, correction and deletion, email the developer at
+<a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, and include the app version (see “Settings → Version”).</p>
+
+<!-- ============================ Part 2: Terms of Service ============================ -->
+<h2 class="doc-title" id="terms">Terms of Service</h2>
+<p class="meta">Effective: September 2026 | Product: AutoScrip (this app) | This app <strong>requires a network connection</strong></p>
+
+<p>AutoScrip is a tool that runs <strong>on-device UI automation</strong>. It is offered <strong>free of charge and financed by
+advertising</strong>, and it needs a network connection to work in full. By downloading, installing or using the app you
+confirm that you have read and accept these terms.</p>
+
+<h2>1. What the app does</h2>
+<p>The app records and stores a set of actions on your phone — tap at coordinates, tap by widget text, swipe, Home and Back —
+and replays them in the order and with the delays you arranged. It <strong>never performs an action you did not arrange</strong>,
+and it provides no content, no transactions and no managed services on your behalf.</p>
+<p>Every feature is free. <strong>Nothing is charged, there is no subscription and nothing is unlocked behind a payment.</strong>
+If you see an entry inside the app claiming that paying will “unlock scripts” or “speed up execution”, that is misleading ad
+content — do not trust it.</p>
+
+<h2>2. Network use and advertising</h2>
+<ul>
+  <li>to keep the app free, it <strong>shows advertisements</strong>, which are supplied and placed by third-party ad platforms;</li>
+  <li>loading ads and reporting runtime diagnostics <strong>require a network connection</strong>; the exact data scope is described in the Privacy Policy on this page;</li>
+  <li>you can reset or disable the device advertising identifier in system settings to reduce personalised delivery; blocking network access for this app in system settings stops ads from loading but leaves your local scripts usable;</li>
+  <li>third-party ad and analytics services are responsible for their own content, availability and terms; any transaction or dispute you have with them is not attributable to this app;</li>
+  <li><strong>do not click misleading ads to pay or to download anything</strong> — the app has no such payment mechanism.</li>
+</ul>
+
+<h2>3. Your responsibilities and acceptable use</h2>
+<p>Use the app within what the law allows and bear the consequences of your own use. You undertake not to use the app to:</p>
+<ul>
+  <li>mass-buy tickets or inventory, create fake accounts, bulk like/follow, or otherwise <strong>disrupt the normal order of other products</strong>;</li>
+  <li>harass others, send bulk irrelevant messages, or infringe the rights of others;</li>
+  <li>bypass the security checks of other apps, or reach data or features that their terms forbid;</li>
+  <li>maliciously drain the app's ad revenue by scripting clicks or impressions;</li>
+  <li>decompile, reverse-engineer or redistribute the app, or remove or alter its branding and ad placement.</li>
+</ul>
+<p class="note">Most apps forbid automation scripts and external tools in their own terms of service. Before using this app,
+check that the target app permits automated operation; otherwise you alone carry the resulting account risk or data loss.</p>
+
+<h2>4. Usage limits and risks</h2>
+<ul>
+  <li>the app depends on the system Accessibility service, which you enable yourself in system settings; revoking the permission stops every capability;</li>
+  <li>scripts replay by coordinates and text, so a redesign, an unexpected dialog or a different resolution can send a tap to the wrong place. Do <strong>not</strong> run them on irreversible screens such as payment, money transfer or data deletion;</li>
+  <li>long unattended runs may trigger the anti-fraud policies of the system or of other apps; start with a small loop count to verify;</li>
+  <li>the app needs a network connection; running it on cellular data may incur traffic charges, which are yours;</li>
+  <li>the app is provided “as is”, with no express or implied warranty of availability or accuracy, and we are not liable for indirect losses.</li>
+</ul>
+
+<h2>5. Data and backups</h2>
+<p>The scripts you create stay on <strong>your device</strong> and belong to you. The app carries no backup duty: switching
+devices, clearing app data or uninstalling deletes every script. How data is processed (including what may be reported for
+advertising or analytics) is described in the Privacy Policy on this page.</p>
+
+<h2>6. Intellectual property</h2>
+<p>The intellectual property in the app's code, interface design and materials — other than user content — belongs to the
+developer or the corresponding rights holders. The script content you create with the app belongs to you or to its original
+rights holder.</p>
+
+<h2>7. Changes to and termination of these terms</h2>
+<p>We may revise these terms because of feature changes, commercial-model changes or legal requirements; the revised terms
+take effect when published on this page, and material changes will be highlighted inside the app. If you disagree with a
+change, stop using and uninstall the app. You may stop using the app at any time; the clauses on usage limits, disclaimers
+and intellectual property survive termination.</p>
+
+<h2>8. Contact</h2>
+<p>For questions about these terms, email the developer at <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, and include the app
+version (see “Settings → Version”).</p>
+
+</body>
+</html>
