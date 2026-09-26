@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <!--
     部署用合并文书（中文版）：隐私协议 + 用户协议合成一份，供 AgreementActivity 的 WebView 远程加载
-    （对应 strings.xml 里的 policy_url_zh，默认指向 …/policy/combined.html）。
+    （对应 strings.xml 里的 policy_url_zh，真实部署地址 …/index_zh）。
     这不是 assets 内的本地文件，而是「上传到公网 host 的那一份」的源件；改正文只改这里再重新部署，不动代码。
 
     维护约定：
     - 本应用是「免费 + 广告」的**联网**软件，明写联网与广告、广告与诊断上报为现在时事实、第三方 SDK 公示制；
-    - combined_en.html 是本文的英文镜像，**中文是权威口径**——改中文必须逐段同步改英文，不得只改一半；
+    - 中文是权威口径：index.html（英）与 index_ja/ko/de/pt/es/id/fr.html（其余七语）逐段镜像本文，
+      **改中文必须在同一次提交里同步改全部八份镜像**，不得只改一半；
     - 接入任何一个新的数据处理者（广告 / 统计 SDK）时，先把它的名称、收集范围与官方隐私链接补进本文
-      （及 combined_en.html）再部署上线。
+      （及全部镜像）再部署上线。
     - 配色沿用 app 深色底（ui_bg_window #121212 / ui_text_primary #FFFFFF / ui_primary #4CAF50）。
 -->
 <html lang="zh-CN">
@@ -68,7 +69,7 @@
 <body>
 
 <h1>隐私政策与用户协议</h1>
-<p class="meta">适用产品：AutoScrip（本应用）｜本应用<strong>需要联网</strong></p>
+<p class="meta">适用产品：Auto Touch（本应用）｜本应用<strong>需要联网</strong></p>
 
 <nav class="nav">
   <a href="#privacy">隐私协议</a>
@@ -77,7 +78,7 @@
 
 <!-- ============================ 第一部分：隐私协议 ============================ -->
 <h2 class="doc-title" id="privacy">隐私协议</h2>
-<p class="meta">生效日期：2026 年 9 月｜适用产品：AutoScrip（本应用）｜本应用<strong>需要联网</strong></p>
+<p class="meta">生效日期：2026 年 9 月｜适用产品：Auto Touch（本应用）｜本应用<strong>需要联网</strong></p>
 
 <p>本应用是一款在本机运行界面自动化脚本的工具软件，采用<strong>免费 + 广告</strong>的运营方式：
 应用会联网加载广告并上报必要的运行诊断信息。请在使用前完整阅读本协议，你继续使用本应用即表示你接受本协议。</p>
@@ -147,7 +148,7 @@
 
 <!-- ============================ 第二部分：用户协议 ============================ -->
 <h2 class="doc-title" id="terms">用户协议</h2>
-<p class="meta">生效日期：2026 年 9 月｜适用产品：AutoScrip（本应用）｜本应用<strong>需要联网</strong></p>
+<p class="meta">生效日期：2026 年 9 月｜适用产品：Auto Touch（本应用）｜本应用<strong>需要联网</strong></p>
 
 <p>本应用是一款提供<strong>本机界面自动化</strong>能力的工具软件，以<strong>免费 + 广告</strong>的方式运营，
 需要联网才能完整提供这些能力。你下载、安装或使用本应用，即表示你已阅读并同意本协议。</p>

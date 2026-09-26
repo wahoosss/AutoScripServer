@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--
+    Deployable merged document (Korean): Privacy Policy + Terms of Service in one page, loaded remotely
+    by AgreementActivity's WebView (matches policy_url_ko in strings.xml).
+    This is the source of the copy that goes on the public host, not an assets-local file; edit here and redeploy.
+
+    Maintenance rule:
+    - index_zh.html (Chinese) is the AUTHORITATIVE wording; this file mirrors it section by section — when the
+      Chinese changes, update ALL language copies in the same commit, never one file;
+    - this app is free and ad-financed and it does use the network; ads and diagnostics are stated in the
+      present tense, third-party SDKs are disclosed on this page;
+    - whenever a new data processor (ad / analytics SDK) is actually integrated, add its name, data scope and
+      official privacy-policy link here (and in every other language copy) BEFORE deploying the release.
+    - Palette follows the app's dark theme (ui_bg_window #121212 / ui_text_primary #FFFFFF / ui_primary #4CAF50).
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>개인정보 처리방침 및 서비스 이용약관</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0;
+    padding: 20px 16px 40px;
+    background: #121212;
+    color: #FFFFFF;
+    font-size: 15px;
+    line-height: 1.75;
+    -webkit-text-size-adjust: 100%;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 26px 0 6px; }
+  h3 { font-size: 15px; margin: 18px 0 4px; }
+  p, li { color: #DDDDDD; margin: 8px 0; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  .meta { color: #AAAAAA; font-size: 13px; margin: 0 0 18px; }
+  .note {
+    margin: 18px 0 0;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #1C1F22;
+    color: #AAAAAA;
+    font-size: 13px;
+  }
+  strong { color: #4CAF50; }
+  a { color: #4CAF50; }
+  /* in-page navigation: jump to the start of each document */
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin: 14px 0 26px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #1C1F22;
+    font-size: 14px;
+  }
+  .nav a { text-decoration: none; }
+  /* big title per document; the underline separates the two documents */
+  .doc-title {
+    font-size: 18px;
+    margin: 34px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2A2E32;
+  }
+  .doc-title, h2, h3 { scroll-margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<h1>개인정보 처리방침 및 서비스 이용약관</h1>
+<p class="meta">적용 제품: Auto Touch(본 앱) | 본 앱은 <strong>네트워크 연결이 필요합니다</strong></p>
+
+<nav class="nav">
+  <a href="#privacy">개인정보 처리방침</a>
+  <a href="#terms">서비스 이용약관</a>
+</nav>
+
+<!-- ============================ Part 1: Privacy Policy ============================ -->
+<h2 class="doc-title" id="privacy">개인정보 처리방침</h2>
+<p class="meta">시행일: 2026년 9월 | 적용 제품: Auto Touch(본 앱) | 본 앱은 <strong>네트워크 연결이 필요합니다</strong></p>
+
+<p>Auto Touch는 기기 내에서 실행되는 UI 자동화 도구로, <strong>무료이며 광고로 수익화</strong>되는 방식으로 제공됩니다:
+앱은 광고를 불러오고 앱의 정상적인 작동을 유지하는 데 필요한 최소한의 진단 정보를 보고하기 위해 네트워크에 연결합니다.
+사용 전에 본 방침을 반드시 읽어보시고, 본 앱을 계속 사용하시면 본 방침에 동의하는 것으로 간주됩니다.</p>
+
+<h2>1. 수집하는 정보와 그 목적</h2>
+
+<h3>1.1 스크립트 데이터: 기기에만 저장</h3>
+<p>당신이 기록한 탭·스와이프 위치, 좌표, 소요 시간, 시작 지연, 반복 횟수와 직접 입력한 스크립트 이름 및 설명은
+기기의 <strong>앱 전용 저장 영역</strong>에 기록됩니다. 이러한 데이터는 <strong>절대 업로드되지 않으며</strong>
+광고 타겟팅에 사용되지도 않습니다. 앱을 삭제하면 함께 삭제됩니다.</p>
+
+<h3>1.2 광고 제공과 앱 작동을 위해 필요한 정보</h3>
+<p>광고를 불러오고, 기능의 가용성을 집계하며, 충돌을 진단하기 위해 다음 정보를 수집합니다:</p>
+<ul>
+  <li><strong>기기 및 앱 정보</strong>: 모델, 브랜드, OS 버전, 화면 해상도와 밀도, 앱 버전, 언어 및 지역;</li>
+  <li><strong>네트워크 정보</strong>: 연결 유형(Wi-Fi / 이동통신), IP 주소에서 도출한 대략적인 지역(전체 IP는 저장하지 않음);</li>
+  <li><strong>광고 식별자</strong>: 광고 게재와 귀속에 사용하는 기기 광고 식별자. 시스템 설정에서 재설정하거나 비활성화할 수 있습니다;</li>
+  <li><strong>사용 및 진단 정보</strong>: 기능 사용 빈도, 스크립트 실행의 성공/실패 결과 코드, 충돌 스택과 발생 위치.</li>
+</ul>
+<p>위 정보에는 당신의 연락처, 문자메시지, 통화 기록, 사진 갤러리, 정확한 위치가 포함되지 않으며, 다른 앱에서
+입력한 비밀번호나 결제 정보도 절대 포함되지 않습니다.</p>
+
+<h3>1.3 광고</h3>
+<p>앱에 표시되는 광고는 제3자 광고 플랫폼이 제공하고 게재합니다. 빈도 제한, 귀속 분석, 부정행위 방지를 위해
+광고 SDK는 위 1.2에 나열된 기기·네트워크 정보를 해당 자체 개인정보 처리방침에 따라 처리합니다.
+광고 콘텐츠가 <strong>당신의 스크립트나 좌표를 읽는 일은 없습니다</strong>.</p>
+
+<h3>1.4 제3자 SDK 공개 방식</h3>
+<p>본 앱이 통합하는 모든 광고·분석 계열 제3자 SDK는 명칭, 데이터 범위, 공식 개인정보 처리방침 링크를
+본 페이지에 게재한 뒤 릴리스에 포함됩니다. <strong>본 페이지에 표시되지 않은 제3자는 본 앱 내에서 실행되지 않습니다.</strong>
+목록의 업데이트는 앱 버전과 함께 게시됩니다.</p>
+
+<h2>2. 접근성 권한과 그 가시 범위</h2>
+<p>Auto Touch는 위젯의 텍스트를 읽고 당신이 지정한 위치에서 탭과 스와이프를 실행하기 위해 시스템의
+접근성 서비스 권한이 필요합니다. 이 권한은:</p>
+<ul>
+  <li>당신이 시스템 설정에서 직접 부여하며 같은 곳에서 언제든 회수할 수 있습니다. 끄면 모든 자동화가 즉시 중단됩니다;</li>
+  <li><strong>당신이 직접 작성한 스크립트</strong>의 실행에만 사용되며, 앱이 다른 앱의 콘텐츠를 임의로 탐색·기록·업로드하지 않습니다;</li>
+  <li>다른 앱에서 입력한 비밀번호, 결제 정보 등 민감 콘텐츠를 인식하거나 기록하거나 업로드하는 데 사용되지 않습니다.</li>
+</ul>
+<p class="note">권고: 결제, 은행, 본인 인증이 관련된 화면에서는 자동화를 실행하지 마세요.
+스크립트 좌표는 기기에 저장되므로 — 기기 공유나 백업 복원 시 이 점을 유념하세요.</p>
+
+<h2>3. 저장, 공유 및 보호</h2>
+<ul>
+  <li><strong>저장 위치와 기간</strong>: 기기 내 데이터는 앱 전용 저장 영역에 보관됩니다. 네트워크로 보고된 데이터는 서버에서 최대 12개월 보관된 뒤 삭제되거나 익명화됩니다;</li>
+  <li><strong>전송 보안</strong>: 모든 네트워크 요청은 HTTPS를 사용하며, 광고·진단 요청에는 당신의 스크립트 내용이 포함되지 않습니다;</li>
+  <li><strong>공유 범위</strong>: 광고, 분석, 장애 조사가 필요한 범위에서만 제3자와 공유하며, 당신의 개인 정보를 판매하지 않습니다. 법률이 강제하는 경우 이에 따라 공개할 수 있으며, 허용되는 범위에서 당신에게 통지합니다;</li>
+  <li><strong>국경 간 이전</strong>: 제3자 서비스의 역외 이전이 관련된 경우, 통합 시 본 페이지에서 별도로 명시하고 당신의 동의를 구합니다.</li>
+</ul>
+
+<h2>4. 당신의 관리 수단</h2>
+<ul>
+  <li>앱에서 개별 스크립트를 삭제하거나, 「설정 → 앱 → 저장공간 → 데이터 삭제」로 로컬 데이터를 일괄 삭제;</li>
+  <li>시스템 설정에서 접근성 권한을 언제든 회수;</li>
+  <li>기기 광고 식별자를 재설정하거나 비활성화하여 관심 기반 광고를 옵트아웃(광고는 계속 표시되지만 개인화되지는 않음);</li>
+  <li>시스템 설정에서 본 앱의 네트워크 접근을 차단하면 광고 로딩과 진단 보고가 중지되지만, 로컬 스크립트는 계속 사용할 수 있습니다.</li>
+</ul>
+
+<h2>5. 미성년자</h2>
+<p>본 앱은 성인 사용자를 대상으로 합니다. 미성년자가 사용하는 경우 보호자의 인지 및 동의 하에 이용하세요.
+우리는 미성년자를 대상으로 한 개인화 광고를 집행하지 않습니다.</p>
+
+<h2>6. 본 방침의 변경</h2>
+<p>기능이나 데이터 처리 방식이 변경되면 본 페이지를 업데이트하고 앱에서 최신 버전을 표시합니다.
+데이터 수집 추가, 제3자 추가, 목적 변경이 동반되는 사항은 발효 전에 눈에 띄게 고지합니다.</p>
+
+<h2>7. 연락처</h2>
+<p>본 방침에 관한 질문이나 조회·정정·삭제 등 권리의 행사는 개발자에게
+<a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>로 이메일을 보내 주시고, 앱 버전 번호
+(「설정 → 버전 정보」에서 확인 가능)를 기재해 주세요.</p>
+
+<!-- ============================ Part 2: Terms of Service ============================ -->
+<h2 class="doc-title" id="terms">서비스 이용약관</h2>
+<p class="meta">시행일: 2026년 9월 | 적용 제품: Auto Touch(본 앱) | 본 앱은 <strong>네트워크 연결이 필요합니다</strong></p>
+
+<p>Auto Touch는 <strong>기기 내 UI 자동화</strong>를 실행하는 도구로, <strong>무료이며 광고로 수익화</strong>되는 방식으로
+제공되며, 기능을 온전히 사용하려면 네트워크 연결이 필요합니다. 본 앱을 다운로드, 설치 또는 사용하시면
+당신이 본 약관을 읽고 동의한 것으로 간주됩니다.</p>
+
+<h2>1. 앱의 기능</h2>
+<p>본 앱은 휴대폰에서의 일련의 작업 — 좌표 탭, 위젯 텍스트 탭, 스와이프, 홈, 뒤로 — 을 기록·저장하고
+당신이 지정한 순서와 지연으로 재생합니다. 앱은 <strong>당신이 지정하지 않은 작업을 절대 실행하지 않으며</strong>,
+콘텐츠, 거래, 대행 운영 서비스도 제공하지 않습니다.</p>
+<p>모든 기능이 무료입니다. <strong>요금 청구도, 구독도, 유료 해제도 없습니다.</strong>
+앱 내에서 「결제 후 스크립트 해금」「실행 가속」 등을 주장하는 표시를 보았다면 그것은 광고의 오도적 콘텐츠이니
+신뢰하지 마세요.</p>
+
+<h2>2. 네트워크 사용과 광고</h2>
+<ul>
+  <li>무료 운영을 유지하기 위해 본 앱은 <strong>광고를 표시하며</strong>, 광고는 제3자 광고 플랫폼이 제공·게재합니다;</li>
+  <li>광고 로딩과 실행 진단 보고에는 <strong>네트워크 연결이 필요합니다</strong>. 수집 정보의 정확한 범위는 본 페이지의 개인정보 처리방침을 참조하세요;</li>
+  <li>시스템 설정에서 기기 광고 식별자를 재설정하거나 비활성화하면 개인화 게재를 줄일 수 있습니다. 시스템 「앱 관리」에서 네트워크 접근을 차단하면 광고는 로드되지 않지만 로컬 스크립트는 계속 사용할 수 있습니다;</li>
+  <li>제3자 광고·분석 서비스의 콘텐츠, 가용성, 자체 약관은 해당 제3자의 책임이며, 그들과 발생하는 거래나 분쟁은 본 앱에 귀속되지 않습니다;</li>
+  <li><strong>오도적인 광고를 클릭하여 결제하거나 무언가를 다운로드하지 마세요</strong> — 본 앱에는 그런 결제 해금 메커니즘이 없습니다.</li>
+</ul>
+
+<h2>3. 당신의 책임과 허용된 사용</h2>
+<p>법률이 허용하는 범위에서 본 앱을 사용하고 사용의 결과에 대한 책임을 스스로 부담하세요. 당신은 본 앱을 다음 목적으로 사용하지 않기로 약속합니다:</p>
+<ul>
+  <li>티켓·재고의 대량 선점, 가상 계정 생성, 좋아요/팔로우 일괄 조작 등 <strong>다른 제품의 정상적인 질서를 해치는</strong> 행위;</li>
+  <li>다른 사람을 괴롭히거나, 무관한 메시지를 대량 발송하거나, 타인의 권리를 침해하는 행위;</li>
+  <li>다른 앱의 보안 검증을 우회하거나, 그 약관이 금지하는 데이터·기능에 접근하는 행위;</li>
+  <li>스크립트로 클릭·노출을 조작하여 본 앱의 광고 수익을 악의적으로 소진시키는 행위;</li>
+  <li>본 앱을 역컴파일, 리버스 엔지니어링, 재배포하거나, 본 앱의 브랜드 표시와 광고 배치를 제거·변경하는 행위.</li>
+</ul>
+<p class="note">대부분의 앱은 자체 약관에서 자동화 스크립트와 외부 도구를 금지합니다. 본 앱 사용 전에
+대상 앱이 자동화 조작을 허용하는지 확인하세요. 그렇지 않을 경우 발생하는 계정 위험이나 데이터 손실의
+결과는 당신 스스로 부담합니다.</p>
+
+<h2>4. 사용 제한과 위험 고지</h2>
+<ul>
+  <li>본 앱은 시스템 접근성 서비스에 의존하며, 당신이 시스템 설정에서 직접 켜야 합니다. 권한을 회수하면 모든 기능이 중단됩니다;</li>
+  <li>스크립트는 좌표와 텍스트로 재생되므로 UI 개편, 예기치 않은 팝업, 해상도 변경에 의해 탭이 잘못된 위치로 갈 수 있습니다. 결제, 송금, 데이터 삭제 등 <strong>되돌릴 수 없는 화면에서는 실행하지 마세요</strong>;</li>
+  <li>장시간 자동 실행은 시스템이나 다른 앱의 부정행위 정책을 촉발할 수 있으므로, 적은 반복 횟수부터 검증하세요;</li>
+  <li>본 앱은 네트워크 연결이 필요합니다. 이동통신망에서 실행하면 데이터 요금이 발생할 수 있으며, 이는 당신의 부담입니다;</li>
+  <li>본 앱은 「있는 그대로」 제공되며, 가용성이나 정확성에 대해 명시적 또는 묵시적 보증 없이 제공되고 간접적 손실에 대해 책임을 지지 않습니다.</li>
+</ul>
+
+<h2>5. 데이터와 백업</h2>
+<p>당신이 만든 스크립트는 <strong>당신의 기기</strong>에만 저장되며 당신의 것입니다. 본 앱은 백업 의무를 지지 않습니다:
+기기 변경, 앱 데이터 삭제, 앱 제거 시 모든 스크립트가 삭제됩니다. 데이터 처리 방식(광고·분석을 위해
+보고되는 정보를 포함)은 본 페이지의 개인정보 처리방침에 기재되어 있습니다.</p>
+
+<h2>6. 지식재산권</h2>
+<p>본 앱의 코드, 인터페이스 디자인 및 사용자 콘텐츠를 제외한 관련 자료의 지식재산권은 개발자 또는 해당 권리자에게
+속합니다. 본 앱을 사용하여 당신이 만든 스크립트 콘텐츠의 권리는 당신 또는 원래 권리자에게 속합니다.</p>
+
+<h2>7. 본 약관의 변경과 종료</h2>
+<p>기능 변경, 사업 모델 변경, 법적 요구에 따라 본 약관을 개정할 수 있습니다. 개정된 약관은 본 페이지에 게시되면
+발효하며, 중대한 변경은 앱 내에서 눈에 띄게 고지됩니다. 변경에 동의하지 않으면 사용을 중단하고 앱을 삭제하세요.
+당신은 언제든 사용을 중단할 수 있습니다. 사용 제한, 면책, 지식재산권에 관한 조항은 계약 종료 후에도 효력을 유지합니다.</p>
+
+<h2>8. 연락처</h2>
+<p>본 약관에 관한 질문은 개발자에게 <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>로 이메일을
+보내 주시고, 앱 버전 번호(「설정 → 버전 정보」에서 확인 가능)를 기재해 주세요.</p>
+
+</body>
+</html>
