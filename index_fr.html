@@ -5,19 +5,30 @@
     This is the source of the copy that goes on the public host, not an assets-local file; edit here and redeploy.
 
     Maintenance rule:
-    - index_zh.html (Chinese) is the AUTHORITATIVE wording; this file mirrors it section by section — when the
-      Chinese changes, update ALL language copies in the same commit, never one file;
-    - this app is free and ad-financed and it does use the network; ads and diagnostics are stated in the
-      present tense, third-party SDKs are disclosed on this page;
-    - whenever a new data processor (ad / analytics SDK) is actually integrated, add its name, data scope and
-      official privacy-policy link here (and in every other language copy) BEFORE deploying the release.
-    - Palette follows the app's dark theme (ui_bg_window #121212 / ui_text_primary #FFFFFF / ui_primary #4CAF50).
+    - Compliance baseline: distributed via Google Play; privacy compliance follows Google Play policies + GDPR (EEA/UK);
+    - this app is a free, ad-financed, networked tool; ads and diagnostics are stated in the present tense, third-party
+      SDKs are disclosed on this page;
+    - consent model (must match the code): the last onboarding screen shows this document with a pre-checked box; the user
+      actively tapping "Commencer" = consent, unchecking = decline. Declining still shows non-personalized ads but keeps
+      Firebase analytics off and every on-device feature working. EEA/UK users additionally choose via Google UMP, and
+      that choice prevails;
+    - index_zh.html (Chinese) is the AUTHORITATIVE wording; this file mirrors it section by section — when the Chinese
+      changes, update ALL language copies in the same commit, never one file;
+    - whenever a new data processor (ad / analytics / consent-management SDK) is integrated, add its name, data scope and
+      official privacy link here (and in every copy) BEFORE deploying;
+    - verified SDK links (do not fabricate): https://policies.google.com/privacy,
+      https://policies.google.com/technologies/ads, https://firebase.google.com/support/privacy
+      (https://firebase.google.com/policies is 404, do not use);
+    - style: use <strong> only for genuine key promises; privacy section order is fixed as
+      "0 at-a-glance → 1 consent → 2 collection → 3 accessibility → 4 third-party SDKs → 5 storage/sharing →
+      6 rights → 7 minors → 8 updates → 9 contact"; the at-a-glance card and the accessibility section must stay up front;
+    - Palette follows the app's dark theme (#121212 / #FFFFFF / #4CAF50).
 -->
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Politique de confidentialité &amp; Conditions d’utilisation</title>
+<title>Politique de confidentialité &amp; Conditions d'utilisation</title>
 <style>
   :root { color-scheme: dark; }
   body {
@@ -43,9 +54,20 @@
     color: #AAAAAA;
     font-size: 13px;
   }
+  /* aperçu en 30 secondes */
+  .summary {
+    margin: 16px 0 4px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #1C1F22;
+    border-left: 3px solid #4CAF50;
+  }
+  .summary h2 { margin: 0 0 6px; font-size: 15px; }
+  .summary ul { margin: 0; padding-left: 18px; }
+  .summary li { color: #DDDDDD; margin: 6px 0; }
   strong { color: #4CAF50; }
   a { color: #4CAF50; }
-  /* in-page navigation: jump to the start of each document */
+  /* navigation interne */
   .nav {
     display: flex;
     flex-wrap: wrap;
@@ -57,7 +79,7 @@
     font-size: 14px;
   }
   .nav a { text-decoration: none; }
-  /* big title per document; the underline separates the two documents */
+  /* titre principal de chaque document */
   .doc-title {
     font-size: 18px;
     margin: 34px 0 10px;
@@ -69,167 +91,168 @@
 </head>
 <body>
 
-<h1>Politique de confidentialité &amp; Conditions d’utilisation</h1>
-<p class="meta">Produit : Auto Touch (cette application) | Cette application <strong>nécessite une connexion réseau</strong></p>
+<h1>Politique de confidentialité &amp; Conditions d'utilisation</h1>
+<p class="meta">Produit : Auto Touch (ci-après « l'Application ») | Distribuée via Google Play | L'Application nécessite une connexion réseau</p>
 
 <nav class="nav">
   <a href="#privacy">Politique de confidentialité</a>
-  <a href="#terms">Conditions d’utilisation</a>
+  <a href="#terms">Conditions d'utilisation</a>
 </nav>
 
-<!-- ============================ Part 1: Privacy Policy ============================ -->
+<!-- ============================ Partie 1 : Politique de confidentialité ============================ -->
 <h2 class="doc-title" id="privacy">Politique de confidentialité</h2>
-<p class="meta">En vigueur depuis : septembre 2026 | Produit : Auto Touch (cette application) | Cette application <strong>nécessite une connexion réseau</strong></p>
+<p class="meta">Date d'entrée en vigueur : septembre 2026 | Produit : Auto Touch</p>
 
-<p>Auto Touch est un outil d’automatisation d’interface exécuté sur l’appareil lui-même. Il est proposé
-<strong>gratuitement et financé par la publicité</strong> : l’application se connecte au réseau pour charger des
-annonces et pour signaler les diagnostics minimaux nécessaires à son bon fonctionnement. Veuillez lire cette
-politique avant toute utilisation ; continuer à utiliser l’application vaut acceptation de cette politique.</p>
+<p>L'Application est un outil qui lit, sur votre téléphone, les scripts d'automatisation d'écran que vous créez vous-même. Elle fonctionne sur le modèle « gratuite + publicité »,
+se connecte donc au réseau pour charger des publicités et, après votre consentement, transmet les statistiques d'exécution et les informations de plantage nécessaires. Elle est distribuée
+via Google Play, et sa conformité en matière de confidentialité suit les politiques de Google Play ainsi que le Règlement général sur la protection des données de l'UE (RGPD). D'abord un aperçu, puis le détail.</p>
 
-<h2>1. Ce que nous collectons et pourquoi</h2>
+<div class="summary">
+  <h2>0. Aperçu en 30 secondes</h2>
+  <ul>
+    <li>Les scripts que vous élaborez (positions de tap, coordonnées, texte, durées, nombre de boucles, noms de script) sont<strong>stockés uniquement sur l'appareil</strong>, jamais téléversés, et jamais utilisés pour le ciblage publicitaire.</li>
+    <li>L'Application reste gratuite grâce aux publicités Google AdMob, qui utilisent des informations sur l'appareil, le réseau et l'identifiant publicitaire (GAID).</li>
+    <li>Lors du premier lancement, vous pouvez accepter ou refuser : accepter = publicités personnalisées + mesure d'audience activée ; refuser = uniquement des publicités non personnalisées, mesure d'audience désactivée. <strong>Dans les deux cas, toutes les fonctions locales restent utilisables.</strong></li>
+    <li>Nous ne collectons pas vos contacts, vos SMS, votre historique d'appels, vos photos ni votre position précise, et nous ne lisons pas les mots de passe ni les informations de paiement que vous saisissez dans d'autres applications.</li>
+  </ul>
+</div>
 
-<h3>1.1 Les données de scripts : restent sur votre appareil</h3>
-<p>Les tapotements et balayages que vous marquez, leurs coordonnées, durées, délais de départ et nombres de
-répétitions, ainsi que le nom et la description du script que vous saisissez vous-même, sont écrits dans le
-<strong>stockage privé de l’application</strong> sur votre appareil. Ils ne sont <strong>jamais téléversés</strong>
-et ne servent jamais au ciblage publicitaire. La désinstallation de l’application les supprime.</p>
-
-<h3>1.2 Les données nécessaires au service des annonces et au fonctionnement de l’application</h3>
-<p>Pour charger les annonces, mesurer la disponibilité des fonctions et diagnostiquer les plantages, nous collectons :</p>
+<h2>1. Comment nous recueillons votre consentement</h2>
+<p>Lors du premier lancement, l'Application affiche ce document sur le dernier écran du parcours d'accueil, avec une case à cocher pré-cochée. Votre consentement repose<strong>sur l'acte de appuyer vous-même sur « Commencer »</strong>, et non sur un état par défaut :</p>
 <ul>
-  <li><strong>Informations sur l’appareil et l’application</strong> : modèle, marque, version du système, résolution et densité d’écran, version de l’application, langue et région ;</li>
-  <li><strong>Informations réseau</strong> : type de connexion (Wi-Fi / données mobiles), région approximative déduite de l’adresse IP (l’IP complète n’est pas conservée) ;</li>
-  <li><strong>Identifiant publicitaire</strong> : l’identifiant publicitaire de l’appareil, utilisé pour la diffusion et l’attribution des annonces. Vous pouvez le réinitialiser ou le désactiver dans les paramètres système ;</li>
-  <li><strong>Informations d’utilisation et de diagnostic</strong> : fréquence d’utilisation des fonctions, codes de résultat succès/échec de l’exécution des scripts, piles d’exception des plantages et lieu de survenue.</li>
+  <li><strong>Laisser coché et appuyer sur « Commencer » = accepter</strong> : les publicités personnalisées et Google Firebase Analytics sont activés ;</li>
+  <li><strong>Décocher puis appuyer sur « Commencer » = refuser</strong> : la mesure d'audience reste désactivée et vos données d'utilisation et de plantage ne sont pas collectées ; pour maintenir l'Application gratuite, les publicités continuent de s'afficher, mais seulement non personnalisées ;</li>
+  <li>Accepter ou refuser n'affecte ni l'enregistrement ni l'exécution des scripts — toutes les fonctions locales de l'Application restent pleinement utilisables.</li>
 </ul>
-<p>Rien de ce qui précède n’inclut vos contacts, SMS, journal d’appels, photothèque ou localisation précise, et
-n’inclut jamais les mots de passe ni les informations de paiement que vous saisissez dans d’autres applications.</p>
+<p class="note">À propos des « publicités non personnalisées » : pour demander et afficher une publicité, le SDK publicitaire transmet toujours à Google des informations sur l'appareil, le réseau et l'identifiant publicitaire, aux fins de diffusion, de plafonnement de fréquence, d'attribution et de lutte contre la fraude.
+Ces informations ne servent pas à établir un profil de vos centres d'intérêt ni à un ciblage personnalisé. « Non personnalisé » limite la manière de cibler les publicités ; cela ne signifie pas une absence totale de données.</p>
+<p>Utilisateurs de l'Espace économique européen (EEE) et du Royaume-Uni : vous verrez en outre une interface de consentement standard fournie par Google (User Messaging Platform, UMP). Votre choix dans cette interface prime sur la case ci-dessus et
+détermine directement si les publicités sont personnalisées et si la mesure d'audience est activée ; vous pouvez le modifier à tout moment dans cette interface ou dans les paramètres système.</p>
 
-<h3>1.3 Publicité</h3>
-<p>Les annonces affichées dans l’application sont fournies et placées par des plateformes publicitaires tierces. Pour
-la limitation de fréquence, l’attribution et la détection de la fraude, le SDK publicitaire traite les données
-d’appareil et de réseau énumérées au 1.2 conformément à sa propre politique de confidentialité. Le contenu des
-annonces <strong>ne lit pas</strong> vos scripts ni vos coordonnées.</p>
+<h2>2. Les informations que nous collectons et à quoi elles servent</h2>
 
-<h3>1.4 Mode de divulgation des SDK tiers</h3>
-<p>Chaque SDK publicitaire ou analytique intégré à cette application est listé sur cette page — nom, portée des
-données et lien vers sa politique de confidentialité officielle — avant d’être livré dans une version.
-<strong>Un tiers qui n’apparaît pas sur cette page ne s’exécute pas dans cette application.</strong>
-Les mises à jour de la liste sont publiées en même temps que la version de l’application.</p>
+<h3>2.1 Données de script : restent sur l'appareil</h3>
+<p>Les positions de tap/glissement, coordonnées, durées, retards et nombre de boucles que vous marquez dans la fenêtre flottante, ainsi que les noms et descriptions de script que vous saisissez vous-même, sont écrits dans le répertoire privé de l'Application sur votre appareil.
+Ils ne sont pas téléversés et ne servent pas au ciblage publicitaire. Désinstaller l'Application les supprime.</p>
 
-<h2>2. L’autorisation d’accessibilité et ce qu’elle peut voir</h2>
-<p>Auto Touch a besoin de l’autorisation du service d’accessibilité du système pour lire les libellés des widgets et
-effectuer des tapotements et des balayages aux positions que vous définissez. Cette autorisation :</p>
+<h3>2.2 Informations utilisées pour la diffusion publicitaire (que vous acceptiez ou non la personnalisation)</h3>
+<p>Pour charger et diffuser des publicités et effectuer la déduplication, l'attribution et la lutte contre la fraude, le SDK publicitaire (Google AdMob) traite les éléments suivants :</p>
 <ul>
-  <li>vous l’accordez vous-même dans les paramètres système et vous pouvez la révoquer au même endroit à tout moment ; une fois désactivée, toute l’automatisation s’arrête immédiatement ;</li>
-  <li>est utilisée uniquement pour exécuter <strong>les scripts que vous avez vous-même composés</strong> ; l’application ne parcourt, n’enregistre ni ne téléverse le contenu des autres applications d’elle-même ;</li>
-  <li>n’est pas utilisée pour reconnaître, journaliser ni téléverser des contenus sensibles tels que mots de passe ou informations de paiement que vous saisissez dans d’autres applications.</li>
+  <li>Informations sur l'appareil et l'application : modèle, marque, version du système, résolution et densité de pixels de l'écran, version de l'application, langue et région ;</li>
+  <li>Informations réseau : type de réseau (Wi‑Fi / mobile), la région approximative déduite de l'IP (l'IP complète n'est pas enregistrée) ;</li>
+  <li>Identifiant publicitaire : l'identifiant publicitaire de l'appareil (GAID) utilisé pour la diffusion et l'attribution des publicités, que vous pouvez réinitialiser ou désactiver dans les paramètres système.</li>
 </ul>
-<p class="note">Recommandation : n’exécutez pas d’automatisation sur des pages impliquant paiements, banques ou
-vérification d’identité. Les coordonnées des scripts sont conservées sur votre appareil — gardez cela présent à
-l’esprit lorsque vous partagez l’appareil ou restaurez une sauvegarde.</p>
+<p>Quand vous acceptez, Google peut utiliser les informations ci-dessus pour le ciblage personnalisé ; quand vous refusez, les publicités sont diffusées de manière non personnalisée (voir la section 1). Le contenu des publicités ne lit pas le contenu ni les coordonnées de vos scripts.</p>
 
-<h2>3. Stockage, partage et protection</h2>
+<h3>2.3 Informations utilisées pour la mesure d'audience et le diagnostic de plantage (collectées uniquement après votre consentement)</h3>
+<p>Seulement après que vous avez fait un choix de consentement tel que décrit à la section 1 (pour les utilisateurs EEA/RU, accepter la mesure d'audience dans l'interface UMP), l'Application active Google Firebase Analytics, qui collecte alors :</p>
 <ul>
-  <li><strong>Où et combien de temps</strong> : les données locales résident dans le stockage privé de l’application ; les données signalées via le réseau sont conservées sur le serveur au maximum 12 mois, puis supprimées ou anonymisées ;</li>
-  <li><strong>Sécurité du transport</strong> : toutes les requêtes réseau utilisent HTTPS, et les requêtes publicitaires ou analytiques ne contiennent jamais le contenu de vos scripts ;</li>
-  <li><strong>Portée du partage</strong> : nous ne partageons des données avec des tiers que dans la mesure où la publicité, l’analytique et la résolution de problèmes l’exigent, et nous ne vendons pas vos informations personnelles. Nous pouvons divulguer des données lorsque la loi nous y oblige, et vous en informerons dans la mesure du permis ;</li>
-  <li><strong>Transferts internationaux</strong> : si un service tiers implique des transferts hors de votre région, nous le déclarons séparément sur cette page lors de l’intégration et sollicitons votre consentement.</li>
+  <li>Informations d'utilisation : événements tels que le nombre de taps sur les fonctions et les codes de résultat succès/échec des exécutions de script ;</li>
+  <li>Informations de diagnostic : piles d'appels de plantage et lieu de survenue, pour l'analyse de stabilité.</li>
 </ul>
+<p>Si vous refusez, Firebase n'est jamais initialisé, et aucune des données d'utilisation et de plantage ci-dessus ne quitte votre appareil — pas même un octet.</p>
 
-<h2>4. Vos leviers de contrôle</h2>
+<h2>3. L'autorisation d'accessibilité : pourquoi elle est nécessaire et ce qu'elle ne fait pas</h2>
+<p>L'Application a besoin de l'autorisation « Service d'accessibilité » du système pour effectuer des taps et des glissements automatiques — la manière habituelle dont les outils d'automatisation de ce type implémentent les clics. À propos de cette autorisation, veuillez noter :</p>
 <ul>
-  <li>Supprimez des scripts individuels dans l’application, ou effacez toutes les données locales via « Paramètres → Applications → Stockage → Effacer les données » ;</li>
-  <li>Révoquez l’autorisation d’accessibilité à tout moment dans les paramètres système ;</li>
-  <li>Réinitialisez ou désactivez l’identifiant publicitaire de l’appareil pour refuser les annonces fondées sur vos centres d’intérêt (vous verrez toujours des annonces, simplement non personnalisées) ;</li>
-  <li>Bloquer l’accès réseau de cette application dans les paramètres système empêche le chargement des annonces et l’envoi des diagnostics ; vos scripts locaux continuent de fonctionner.</li>
+  <li>Vous l'activez vous-même dans les paramètres système et pouvez la désactiver au même endroit à tout moment ; une fois désactivée, l'Application perd immédiatement toute capacité d'automatisation ;</li>
+  <li>L'Application ne l'utilise que pour exécuter<strong>les scripts que vous avez vous-même élaborés</strong> ; elle ne parcourt, n'enregistre ni ne téléverse, en arrière-plan, le contenu d'écran d'autres applications ;</li>
+  <li>Le contenu sensible que vous saisissez dans d'autres applications — mots de passe, informations de paiement et similaires — n'est ni reconnu, ni enregistré, ni téléversé par l'Application.</li>
 </ul>
+<p class="note">Recommandation : n'exécutez pas de scripts d'automatisation sur des pages impliquant paiement, banque ou vérification d'identité ; les coordonnées des scripts sont enregistrées sur l'appareil, alors, lorsque vous partagez ou sauvegardez votre téléphone, faites attention aux informations qu'elles peuvent contenir.</p>
 
-<h2>5. Mineurs</h2>
-<p>Cette application s’adresse aux utilisateurs adultes. Si un mineur l’utilise, que ce soit avec la connaissance et
-le consentement d’un tuteur légal. Nous ne diffusons pas de publicité personnalisée ciblant les mineurs.</p>
-
-<h2>6. Modifications de cette politique</h2>
-<p>Lorsque les fonctionnalités ou le traitement des données évoluent, nous mettons à jour cette page et affichons la
-dernière version dans l’application. Tout ce qui ajoute une collecte de données, ajoute un tiers ou change une
-finalité sera mis en avant avant son entrée en vigueur.</p>
-
-<h2>7. Contact</h2>
-<p>Pour toute question relative à cette politique, ou pour exercer vos droits d’accès, de rectification et de
-suppression, écrivez au développeur à <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, en indiquant la
-version de l’application (voir « Paramètres → Version »).</p>
-
-<!-- ============================ Part 2: Terms of Service ============================ -->
-<h2 class="doc-title" id="terms">Conditions d’utilisation</h2>
-<p class="meta">En vigueur depuis : septembre 2026 | Produit : Auto Touch (cette application) | Cette application <strong>nécessite une connexion réseau</strong></p>
-
-<p>Auto Touch est un outil qui exécute une <strong>automatisation d’interface sur l’appareil lui-même</strong>. Il est
-proposé <strong>gratuitement et financé par la publicité</strong>, et il a besoin d’une connexion réseau pour
-fonctionner pleinement. En téléchargeant, installant ou utilisant l’application, vous confirmez avoir lu et accepté
-ces conditions.</p>
-
-<h2>1. Ce que fait l’application</h2>
-<p>L’application enregistre et conserve un ensemble d’actions sur votre téléphone — tapoter par coordonnées, tapoter
-par texte de widget, balayer, Accueil et Retour — et les rejoue dans l’ordre et avec les délais que vous avez
-organisés. Elle <strong>n’exécute jamais une action que vous n’avez pas organisée</strong>, et ne fournit aucun
-contenu, transaction ni service géré en votre nom.</p>
-<p>Toutes les fonctionnalités sont gratuites. <strong>Rien n’est payant, il n’y a pas d’abonnement et rien n’est
-débloqué derrière un paiement.</strong> Si vous voyez dans l’application une entrée affirmant que payer va
-« débloquer des scripts » ou « accélérer l’exécution », il s’agit d’un contenu publicitaire trompeur — n’y croyez pas.</p>
-
-<h2>2. Usage du réseau et publicité</h2>
+<h2>4. Liste des SDK tiers</h2>
+<p>Tous les SDK tiers que l'Application intègre sont listés ci-dessous, chacun en une phrase indiquant « qui, quelles données, dans quel but » ; le traitement complet et en vigueur est régi par la politique de confidentialité officielle de chaque fournisseur (suivez le lien pour le consulter).
+<strong>Tout tiers n'apparaissant pas sur cette page ne s'exécute pas dans l'Application</strong>, et les mises à jour de cette liste sont publiées avec les versions de l'application.</p>
 <ul>
-  <li>pour maintenir l’application gratuite, elle <strong>affiche des annonces</strong>, fournies et placées par des plateformes publicitaires tierces ;</li>
-  <li>le chargement des annonces et le signalement des diagnostics d’exécution <strong>exigent une connexion réseau</strong> ; la portée exacte des données est décrite dans la Politique de confidentialité de cette page ;</li>
-  <li>vous pouvez réinitialiser ou désactiver l’identifiant publicitaire de l’appareil dans les paramètres système pour réduire la diffusion personnalisée ; bloquer l’accès réseau de cette application dans les paramètres système arrête le chargement des annonces, mais vos scripts restent utilisables ;</li>
-  <li>les services publicitaires et analytiques tiers sont responsables de leur propre contenu, de leur disponibilité et de leurs propres conditions ; toute transaction ou litige entre vous et eux n’est pas imputable à cette application ;</li>
-  <li><strong>ne cliquez pas sur des annonces trompeuses pour payer ou télécharger quoi que ce soit</strong> — l’application ne dispose d’aucun mécanisme de paiement de ce type.</li>
+  <li><strong>Google AdMob (Google Mobile Ads SDK)</strong> : diffuse des publicités ; traite les informations sur l'appareil et le réseau ainsi que l'identifiant publicitaire (GAID) pour la diffusion, la déduplication, l'attribution et la lutte contre la fraude ; personnalisées quand vous acceptez, non personnalisées quand vous refusez, et vous pouvez réinitialiser ou désactiver l'identifiant publicitaire dans les paramètres système. Voir <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a> et <a href="https://policies.google.com/privacy">policies.google.com/privacy</a> ;</li>
+  <li><strong>Google Firebase Analytics</strong> : activé uniquement après votre consentement ; collecte des événements d'utilisation et de plantage ainsi qu'une partie des informations sur l'appareil, pour les statistiques d'utilisabilité et l'analyse de stabilité ; pas initialisé ni téléversant si vous refusez. Voir <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a> ;</li>
+  <li><strong>Google User Messaging Platform (UMP)</strong> : affiche aux utilisateurs EEA/RU une interface de consentement conforme, enregistre et transmet vos choix de consentement afin qu'AdMob et Firebase les lisent ; traite les informations de base sur l'appareil et l'application ainsi que la région approximative. Voir <a href="https://policies.google.com/privacy">policies.google.com/privacy</a> ;</li>
+  <li><strong>Google Play Services (services Google Play)</strong> : fournit des capacités de plateforme sous-jacentes telles que l'identifiant publicitaire (GAID), à partir desquelles l'Application lit l'identifiant publicitaire. Voir <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>.</li>
 </ul>
 
-<h2>3. Vos responsabilités et usage acceptable</h2>
-<p>Utilisez l’application dans les limites autorisées par la loi et assumez les conséquences de votre propre usage. Vous vous engagez à ne pas utiliser l’application pour :</p>
+<h2>5. Stockage, partage et protection des informations</h2>
 <ul>
-  <li>acheter en masse des billets ou des stocks, créer de faux comptes, aimer/suivre en masse, ou de quelque manière que ce soit <strong>troubler l’ordre normal des autres produits</strong> ;</li>
-  <li>harceler autrui, envoyer en masse des messages non pertinents, ou porter atteinte aux droits de tiers ;</li>
-  <li>contourner les vérifications de sécurité d’autres applications, ou accéder à des données ou fonctions que leurs conditions interdisent ;</li>
-  <li>drainer malicieusement les revenus publicitaires de l’application par des clics ou des impressions générés par script ;</li>
-  <li>décompiler, rétroconcevoir ou redistribuer l’application, ou supprimer ou altérer son image de marque et son placement publicitaire.</li>
-</ul>
-<p class="note">La plupart des applications interdisent les scripts d’automatisation et les outils externes dans
-leurs propres conditions d’utilisation. Avant d’utiliser cette application, vérifiez que l’application cible autorise
-la commande automatisée ; sinon, vous assumez seul le risque de compte ou la perte de données qui en résulte.</p>
-
-<h2>4. Limites d’usage et risques</h2>
-<ul>
-  <li>l’application dépend du service d’accessibilité du système, que vous activez vous-même dans les paramètres système ; la révocation de l’autorisation arrête toutes les capacités ;</li>
-  <li>les scripts se rejouent par coordonnées et par texte, aussi une refonte, une boîte de dialogue inattendue ou une résolution différente peut envoyer un tapotement au mauvais endroit. Ne les exécutez <strong>pas</strong> sur des écrans irréversibles tels que paiements, virements ou suppression de données ;</li>
-  <li>les exécutions prolongées sans surveillance peuvent déclencher les politiques anti-fraude du système ou des autres applications ; commencez par un petit nombre de répétitions pour vérifier ;</li>
-  <li>l’application a besoin d’une connexion réseau ; l’exécuter en données mobiles peut engendrer des frais de trafic, qui restent à votre charge ;</li>
-  <li>l’application est fournie « en l’état », sans garantie expresse ou implicite de disponibilité ou d’exactitude, et nous ne sommes pas responsables des pertes indirectes.</li>
+  <li>Où et combien de temps : les données locales se trouvent dans le répertoire privé de l'Application ; les données publicitaires et de mesure d'audience transmises via le réseau sont traitées par Google selon ses politiques, et les données que l'Application envoie à son serveur sont conservées au maximum 12 mois, puis supprimées ou anonymisées ;</li>
+  <li>Sécurité des transmissions : toutes les requêtes réseau utilisent HTTPS, et les requêtes publicitaires et de mesure d'audience ne transportent pas le contenu de vos scripts ;</li>
+  <li>Périmètre de partage : nous ne partageons avec les tiers ci-dessus que ce qui est nécessaire pour fournir les publicités, la mesure d'audience et la résolution des problèmes, et nous ne vendons jamais vos informations personnelles ; lorsque la loi ou une autorité compétente l'exige, nous pouvons les fournir et vous en informerons dans la mesure permise ;</li>
+  <li>Transfert international : Google AdMob / Firebase / UMP peuvent impliquer un transfert de données à l'étranger (par exemple vers les serveurs mondiaux de Google) ; nous nous appuyons sur ce document et sur les clauses contractuelles types (CCT) des tiers concernés ainsi que d'autres mécanismes de conformité comme base du transfert.</li>
 </ul>
 
-<h2>5. Données et sauvegardes</h2>
-<p>Les scripts que vous créez restent sur <strong>votre appareil</strong> et vous appartiennent. L’application ne
-contracte aucune obligation de sauvegarde : changer d’appareil, effacer les données de l’application ou la
-désinstaller supprime tous les scripts. Le traitement des données (y compris ce qui peut être signalé au titre de la
-publicité ou de l’analytique) est décrit dans la Politique de confidentialité de cette page.</p>
+<h2>6. Vos contrôles et vos droits</h2>
+<p>Vous pouvez contrôler vos informations des manières suivantes :</p>
+<ul>
+  <li>Choix de consentement : sur le dernier écran du parcours d'accueil, via la case à cocher ; les utilisateurs EEA/RU peuvent faire et modifier leur choix dans l'interface de consentement de Google (UMP) ;</li>
+  <li>Désactiver les publicités personnalisées : réinitialisez ou désactivez l'identifiant publicitaire de l'appareil (GAID) dans les paramètres système — vous verrez toujours des publicités, seulement elles ne seront plus ciblées selon vos centres d'intérêt ;</li>
+  <li>Arrêter la mesure d'audience : refusez le consentement, ou effacez les données de l'application puis choisissez à nouveau « refuser », pour désactiver la mesure d'audience Firebase ;</li>
+  <li>Bloquer le réseau : interdisez l'accès réseau de l'Application dans la « Gestion des applications » du système — les publicités ne pourront plus se charger et les données d'exécution ne pourront plus être envoyées, mais vos scripts et leur exécution locale ne sont pas affectés ;</li>
+  <li>Supprimer les données locales : supprimez des scripts individuels dans l'Application, ou utilisez « Paramètres → Applications → Stockage → Effacer les données » pour tout effacer d'un coup ; désinstaller l'Application les supprime également.</li>
+</ul>
+<p>Droits de la personne concernée au titre du RGPD (pour les utilisateurs dans l'EEE) : vous avez le droit d'accéder, de rectifier et de supprimer vos données personnelles, de limiter ou de vous opposer à leur traitement, à la portabilité des données et de retirer votre consentement à tout moment (le retrait n'affecte pas le traitement déjà effectué avant le retrait),
+ainsi que le droit d'introduire une réclamation auprès de l'autorité de contrôle de la protection des données de votre État membre de résidence. Pour exercer ces droits ou retirer votre consentement, envoyez un e-mail à <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> en indiquant la version de l'application (voir « Paramètres → Version »).</p>
+
+<h2>7. Mineurs</h2>
+<p>L'Application s'adresse aux utilisateurs adultes. Si vous l'utilisez sur l'appareil d'un mineur, faites-le avec la connaissance et le consentement du représentant légal ; nous ne procédons pas à un ciblage publicitaire personnalisé visant les mineurs.</p>
+
+<h2>8. Mises à jour du présent document</h2>
+<p>Lorsque les fonctions ou les pratiques de traitement des données changent, nous mettons à jour cette page et affichons la dernière version dans l'Application. Pour les changements ajoutant une collecte de données, un nouveau tiers ou modifiant une finalité, nous annonçons clairement avant l'entrée en vigueur et, si nécessaire, sollicitons à nouveau votre consentement.</p>
+
+<h2>9. Nous contacter</h2>
+<p>En cas de questions sur le présent document, ou si vous devez exercer des droits tels que l'accès, la rectification, la suppression ou le retrait du consentement, envoyez un e-mail au développeur à <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> en indiquant la version de l'application (voir « Paramètres → Version »).</p>
+
+<!-- ============================ Partie 2 : Conditions d'utilisation ============================ -->
+<h2 class="doc-title" id="terms">Conditions d'utilisation</h2>
+<p class="meta">Date d'entrée en vigueur : septembre 2026 | Produit : Auto Touch</p>
+
+<p>En appuyant sur « Commencer » sur l'écran d'accueil du premier lancement, vous confirmez avoir lu et accepté les présentes Conditions ; vous pouvez cesser d'utiliser et désinstaller l'Application à tout moment. L'Application est un outil d'automatisation d'écran locale,
+fonctionnant sur le modèle « gratuite + publicité », et elle nécessite une connexion réseau pour fournir pleinement ces capacités.</p>
+
+<h2>1. Ce que nous fournissons</h2>
+<p>L'Application fournit ce qui suit : sur votre téléphone, elle enregistre et conserve un ensemble de scripts d'opération (tap par coordonnée, tap par texte de contrôle, glissement, touche Accueil, touche Retour) et les exécute automatiquement dans l'ordre et avec les retards que vous disposez.
+L'Application n'effectue aucune action que vous n'avez pas disposée, et ne fournit aucun contenu, transaction ni service géré en votre nom.</p>
+<p>Toutes les fonctions de l'Application sont gratuites ; il n'y a pas de frais, pas d'abonnement et pas de déverrouillage payant. Si vous voyez dans l'application des entrées prétendant « déverrouiller des scripts moyennant paiement » ou « accélérer l'exécution », il s'agit de contenu publicitaire trompeur — n'y croyez pas.</p>
+
+<h2>2. Réseau et publicités</h2>
+<ul>
+  <li>Pour rester gratuite, l'Application affiche des publicités fournies et diffusées par Google AdMob ;</li>
+  <li>Les publicités s'affichent que vous acceptiez ou non la personnalisation : accepter diffuse des publicités personnalisées et active la mesure d'audience, refuser ne diffuse que des publicités non personnalisées et désactive la mesure d'audience. Le périmètre des données est décrit dans la Politique de confidentialité de cette page ;</li>
+  <li>Charger des publicités nécessite une connexion réseau ; refuser le consentement n'éteint pas les publicités et n'affecte pas l'usage de vos scripts locaux ;</li>
+  <li>Le contenu, la disponibilité et les conditions des services tiers de publicité et de mesure d'audience relèvent de ce tiers ; toute transaction ou litige entre vous et eux est sans rapport avec l'Application ;</li>
+  <li>Ne cliquez pas sur des publicités trompeuses pour payer ou télécharger — l'Application ne dispose d'aucun mécanisme de déverrouillage payant de ce type.</li>
+</ul>
+
+<h2>3. Votre usage acceptable</h2>
+<p>Vous devez utiliser l'Application dans les limites autorisées par la loi et assumer les conséquences de votre propre usage. Vous vous engagez à ne pas utiliser l'Application pour :</p>
+<ul>
+  <li>nuire au bon ordre d'autres produits, par exemple le raflage de billets/articles, les fausses inscriptions, les likes ou abonnés en masse, ou des outils de triche ;</li>
+  <li>harceler autrui, envoyer des messages non pertinents en masse, ou violer les droits d'autrui ;</li>
+  <li>contourner les vérifications de sécurité d'autres applications ou accéder à des données ou fonctions interdites par leurs conditions ;</li>
+  <li>assécher malveillamment les revenus publicitaires de l'Application par des scripts simulant des clics ou des impressions ;</li>
+  <li>cracker, rétro-concevoir ou redistribuer l'Application, ou supprimer ou modifier l'identité et l'affichage publicitaire de l'Application.</li>
+</ul>
+<p class="note">La plupart des conditions d'utilisation des applications interdisent les scripts d'automatisation et les outils externes. Avant d'utiliser l'Application, vérifiez d'abord que l'application cible autorise l'opération automatisée ; sinon, vous assumez seul les conséquences qui en résultent, telles que risques pour le compte ou perte de données.</p>
+
+<h2>4. Risques et non-responsabilité</h2>
+<ul>
+  <li>L'Application dépend du « Service d'accessibilité » du système, que vous activez vous-même dans les paramètres système ; couper l'autorisation arrête toute capacité ;</li>
+  <li>Les scripts s'exécutent par coordonnée et par texte, aussi une refonte de l'interface, un pop-up qui recouvre ou un changement de résolution peuvent provoquer un tap au mauvais endroit. Ne les exécutez pas sur des pages irréversibles telles que paiement, virement d'argent ou suppression de données ;</li>
+  <li>Une automatisation de longue durée peut déclencher les contrôles de risque du système ou d'autres applications ; nous recommandons de valider d'abord avec un petit nombre de boucles ;</li>
+  <li>L'Application nécessite une connexion réseau, et l'exécuter sur données mobiles peut engendrer des frais de trafic, à votre charge ;</li>
+  <li>L'Application est fournie « en l'état », sans garantie expresse ou implicite de disponibilité ou d'exactitude, et sans responsabilité pour les pertes indirectes.</li>
+</ul>
+
+<h2>5. Données et sauvegarde</h2>
+<p>Les scripts que vous créez ne sont enregistrés que sur l'appareil et vous appartiennent. L'Application n'a aucune obligation de sauvegarde : changer d'appareil, effacer les données ou désinstaller l'Application fait perdre tous les scripts. Le traitement des données de script (y compris ce qui, le cas échéant, est transmis pour les publicités et la mesure d'audience) est décrit dans la Politique de confidentialité de cette page.</p>
 
 <h2>6. Propriété intellectuelle</h2>
-<p>Les droits de propriété intellectuelle du code, de la conception de l’interface et des supports de l’application
-— hors contenu utilisateur — appartiennent au développeur ou aux titulaires de droits correspondants. Le contenu des
-scripts que vous créez avec l’application vous appartient, à vous ou au titulaire originel des droits.</p>
+<p>La propriété intellectuelle du programme de l'Application, de son design et des autres matériaux autres que le contenu utilisateur appartient au développeur ou aux titulaires respectifs. Les droits sur le contenu de script que vous créez à l'aide de l'Application vous appartiennent à vous ou aux titulaires d'origine.</p>
 
-<h2>7. Modifications et résiliation de ces conditions</h2>
-<p>Nous pouvons réviser ces conditions en raison d’évolutions fonctionnelles, commerciales ou légales ; les conditions
-révisées entrent en vigueur lorsqu’elles sont publiées sur cette page, et les modifications matérielles seront mises
-en avant dans l’application. Si vous n’acceptez pas une modification, cessez d’utiliser et désinstallez
-l’application. Vous pouvez cesser de l’utiliser à tout moment ; les clauses relatives aux limites d’usage, aux
-dégagements de responsabilité et à la propriété intellectuelle survivent à la résiliation.</p>
+<h2>7. Modifications et résiliation des présentes Conditions</h2>
+<p>Nous pouvons mettre à jour les présentes Conditions en raison de changements de fonctions, du modèle commercial ou d'exigences légales ; les Conditions mises à jour prennent effet dès leur publication sur cette page, et les modifications importantes sont annoncées de manière proéminente dans l'Application. Si vous n'acceptez pas les changements, veuillez cesser d'utiliser et désinstaller l'Application.
+Vous pouvez cesser d'utiliser l'Application à tout moment ; les clauses relatives aux restrictions d'usage, à la non-responsabilité et à la propriété intellectuelle survivent à la résiliation des présentes Conditions.</p>
 
 <h2>8. Contact</h2>
-<p>Pour toute question relative à ces conditions, écrivez au développeur à
-<a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, en indiquant la version de l’application
-(voir « Paramètres → Version »).</p>
+<p>En cas de questions sur les présentes Conditions, envoyez un e-mail au développeur à <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> en indiquant la version de l'application (voir « Paramètres → Version »).</p>
 
 </body>
 </html>

@@ -5,13 +5,24 @@
     This is the source of the copy that goes on the public host, not an assets-local file; edit here and redeploy.
 
     Maintenance rule:
-    - index_zh.html (Chinese) is the AUTHORITATIVE wording; this file mirrors it section by section — when the
-      Chinese changes, update ALL language copies in the same commit, never one file;
-    - this app is free and ad-financed and it does use the network; ads and diagnostics are stated in the
-      present tense, third-party SDKs are disclosed on this page;
-    - whenever a new data processor (ad / analytics SDK) is actually integrated, add its name, data scope and
-      official privacy-policy link here (and in every other language copy) BEFORE deploying the release.
-    - Palette follows the app's dark theme (ui_bg_window #121212 / ui_text_primary #FFFFFF / ui_primary #4CAF50).
+    - Compliance baseline: distributed via Google Play; privacy compliance follows Google Play policies + GDPR (EEA/UK);
+    - this app is a free, ad-financed, networked tool; ads and diagnostics are stated in the present tense, third-party
+      SDKs are disclosed on this page;
+    - consent model (must match the code): the last onboarding screen shows this document with a pre-checked box; the user
+      actively tapping "Loslegen" = consent, unchecking = decline. Declining still shows non-personalized ads but keeps
+      Firebase analytics off and every on-device feature working. EEA/UK users additionally choose via Google UMP, and
+      that choice prevails;
+    - index_zh.html (Chinese) is the AUTHORITATIVE wording; this file mirrors it section by section — when the Chinese
+      changes, update ALL language copies in the same commit, never one file;
+    - whenever a new data processor (ad / analytics / consent-management SDK) is integrated, add its name, data scope and
+      official privacy link here (and in every copy) BEFORE deploying;
+    - verified SDK links (do not fabricate): https://policies.google.com/privacy,
+      https://policies.google.com/technologies/ads, https://firebase.google.com/support/privacy
+      (https://firebase.google.com/policies is 404, do not use);
+    - style: use <strong> only for genuine key promises; privacy section order is fixed as
+      "0 at-a-glance → 1 consent → 2 collection → 3 accessibility → 4 third-party SDKs → 5 storage/sharing →
+      6 rights → 7 minors → 8 updates → 9 contact"; the at-a-glance card and the accessibility section must stay up front;
+    - Palette follows the app's dark theme (#121212 / #FFFFFF / #4CAF50).
 -->
 <html lang="de">
 <head>
@@ -43,9 +54,20 @@
     color: #AAAAAA;
     font-size: 13px;
   }
+  /* 30-Sekunden-Überblickskarte */
+  .summary {
+    margin: 16px 0 4px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #1C1F22;
+    border-left: 3px solid #4CAF50;
+  }
+  .summary h2 { margin: 0 0 6px; font-size: 15px; }
+  .summary ul { margin: 0; padding-left: 18px; }
+  .summary li { color: #DDDDDD; margin: 6px 0; }
   strong { color: #4CAF50; }
   a { color: #4CAF50; }
-  /* in-page navigation: jump to the start of each document */
+  /* SeitennaNavigation */
   .nav {
     display: flex;
     flex-wrap: wrap;
@@ -57,7 +79,7 @@
     font-size: 14px;
   }
   .nav a { text-decoration: none; }
-  /* big title per document; the underline separates the two documents */
+  /* Hauptüberschrift jedes Dokuments */
   .doc-title {
     font-size: 18px;
     margin: 34px 0 10px;
@@ -70,167 +92,167 @@
 <body>
 
 <h1>Datenschutzrichtlinie &amp; Nutzungsbedingungen</h1>
-<p class="meta">Produkt: Auto Touch (diese App) | Diese App <strong>erfordert eine Internetverbindung</strong></p>
+<p class="meta">Produkt: Auto Touch (nachfolgend „die App")｜Vertrieb über Google Play｜Die App benötigt eine Netzwerkverbindung</p>
 
 <nav class="nav">
   <a href="#privacy">Datenschutzrichtlinie</a>
   <a href="#terms">Nutzungsbedingungen</a>
 </nav>
 
-<!-- ============================ Part 1: Privacy Policy ============================ -->
+<!-- ============================ Teil 1: Datenschutzrichtlinie ============================ -->
 <h2 class="doc-title" id="privacy">Datenschutzrichtlinie</h2>
-<p class="meta">Gültig ab: September 2026 | Produkt: Auto Touch (diese App) | Diese App <strong>erfordert eine Internetverbindung</strong></p>
+<p class="meta">Datum des Inkrafttretens: September 2026｜Produkt: Auto Touch</p>
 
-<p>Auto Touch ist ein UI-Automatisierungswerkzeug, das auf Ihrem Gerät ausgeführt wird. Es wird <strong>kostenlos und
-finanziert durch Werbung</strong> angeboten: Die App verbindet sich mit dem Netzwerk, um Werbung zu laden und die
-minimalen Diagnosedaten zu melden, die für den Betrieb der App erforderlich sind. Bitte lesen Sie diese Richtlinie
-vor der Nutzung; durch die weitere Nutzung der App akzeptieren Sie diese.</p>
+<p>Die App ist ein Tool, das auf Ihrem Telefon die von Ihnen selbst erstellten Automatisierungsskripte für die Bildschirmbedienung abspielt. Sie arbeitet nach dem Modell „kostenlos + Finanzierung über Werbung",
+stellt daher über das Netzwerk Werbung bereit und übertragt nach Ihrer Zustimmung die erforderlichen Laufzeitstatistiken und Absturzinformationen. Sie wird über Google Play vertrieben, und ihre
+Datenschutz-Compliance folgt den Google-Play-Richtlinien sowie der EU-Datenschutz-Grundverordnung (DSGVO). Zuerst ein kurzer Überblick, dann die Einzelheiten.</p>
 
-<h2>1. Welche Daten wir erheben und warum</h2>
+<div class="summary">
+  <h2>0. Auf einen Blick (30 Sekunden)</h2>
+  <ul>
+    <li>Die von Ihnen erstellten Skripte (Berührungspositionen, Koordinaten, Texte, Dauern, Schleifenzähler, Skriptnamen) werden<strong>nur auf dem Gerät gespeichert</strong>, nie hochgeladen und nie für die Werbeausrichtung verwendet.</li>
+    <li>Die App bleibt dank Google-AdMob-Werbung kostenlos; die Werbung nutzt Geräte-, Netzwerk- und Werbekennungs-Informationen (GAID).</li>
+    <li>Beim ersten Start können Sie zustimmen oder ablehnen: Zustimmung = personalisierte Werbung + Analyse ein; Ablehnung = nur nicht-personalisierte Werbung, Analyse aus. <strong>In beiden Fällen bleiben alle Funktionen auf dem Gerät nutzbar.</strong></li>
+    <li>Wir erfassen nicht Ihre Kontakte, SMS, Anrufprotokolle, Fotos oder den genauen Standort und lesen auch keine Passwörter oder Zahlungsdaten, die Sie in anderen Apps eingeben.</li>
+  </ul>
+</div>
 
-<h3>1.1 Skriptdaten: bleiben auf Ihrem Gerät</h3>
-<p>Die von Ihnen markierten Tipp- und Wischgesten, ihre Koordinaten, Dauer, Startverzögerung und Schleifenzählung
-sowie der von Ihnen eingegebene Skriptname und die Beschreibung werden in den <strong>appprivaten Speicher</strong>
-Ihres Geräts geschrieben. Sie werden <strong>niemals hochgeladen</strong> und niemals für das Targeting von Werbung
-verwendet. Bei der Deinstallation der App werden sie gelöscht.</p>
-
-<h3>1.2 Für die Auslieferung von Werbung und den Betrieb der App erforderliche Daten</h3>
-<p>Zum Laden von Werbung, zur Messung der Verfügbarkeit von Funktionen und zur Diagnose von Abstürzen erheben wir:</p>
+<h2>1. Wie wir Ihre Zustimmung einholen</h2>
+<p>Beim ersten Start zeigt die App dieses Dokument auf dem letzten Onboarding-Bildschirm mit einem vorausgewählten Bestätigungsfeld. Ihre Zustimmung beruht auf<strong>dem Akt, dass Sie aktiv „Loslegen" tippen</strong>, nicht auf einem vorherigen Zustand:</p>
 <ul>
-  <li><strong>Geräte- und App-Informationen</strong>: Modell, Marke, Betriebssystemversion, Bildschirmauflösung und -dichte, App-Version, Sprache und Region;</li>
-  <li><strong>Netzwerkinformationen</strong>: Verbindungsart (WLAN / mobile Daten), die aus der IP-Adresse abgeleitete grobe Region (die vollständige IP wird nicht gespeichert);</li>
-  <li><strong>Werbungskennung</strong>: die Geräte-Werbungskennung für die Auslieferung und Zuordnung von Werbung. Sie können sie in den Systemeinstellungen zurücksetzen oder deaktivieren;</li>
-  <li><strong>Nutzungs- und Diagnosedaten</strong>: wie häufig Funktionen verwendet werden, Erfolgs-/Fehler-Ergebniscodes der Skriptausführung, Absturzstacktraces und deren Orte.</li>
+  <li><strong>Ausgewählt lassen und „Loslegen" tippen = Zustimmung</strong>: personalisierte Werbung und Google-Firebase-Analyse werden aktiviert;</li>
+  <li><strong>Abwählen und dann „Loslegen" tippen = Ablehnung</strong>: Analyse bleibt aus, Ihre Nutzungs- und Absturzdaten werden nicht erfasst; um die App kostenlos zu halten, wird weiterhin Werbung angezeigt, jedoch nur nicht-personalisierte;</li>
+  <li>Zustimmung oder Ablehnung beeinflussen weder das Aufzeichnen noch das Ausführen von Skripten — alle Funktionen auf dem Gerät bleiben vollständig nutzbar.</li>
 </ul>
-<p>Nichts davon umfasst Ihre Kontakte, SMS, Anruflisten, Fotobibliothek oder einen genauen Standort, und es umfasst
-niemals Passwörter oder Zahlungsdaten, die Sie in anderen Apps eingeben.</p>
+<p class="note">Zur „nicht-personalisierten Werbung": Um eine Werbung anzufragen und anzuzeigen, überträgt das Werbe-SDK weiterhin Geräte-, Netzwerk- und Werbekennungs-Informationen an Google, und zwar für Auslieferung, Frequenzbegrenzung, Attribution und Missbrauchsbekämpfung.
+Diese Informationen werden nicht verwendet, um ein Interessensprofil von Ihnen zu erstellen oder für personalisierte Ausrichtung. „Nicht-personalisiert" schränkt die Art der Ausrichtung ein, bedeutet aber nicht, dass gar keine Daten übertragen werden.</p>
+<p>Nutzer im Europäischen Wirtschaftsraum (EWR) und im Vereinigten Königreich: Sie sehen zusätzlich ein Standard-Zustimmungsinterface von Google (User Messaging Platform, UMP). Ihre Wahl dort hat Vorrang vor dem obigen Kontrollkästchen und
+bestimmt unmittelbar, ob Werbung personalisiert und ob Analyse aktiviert ist; Sie können sie jederzeit in diesem Interface oder in den Systemeinstellungen ändern.</p>
 
-<h3>1.3 Werbung</h3>
-<p>Die in der App angezeigte Werbung wird von Drittanbieter-Werbeplattformen bereitgestellt und platziert. Zur
-Häufigkeitsbegrenzung, Zuordnung und Betrugsprävention verarbeitet das Werbe-SDK die in 1.2 genannten Geräte- und
-Netzwerkdaten gemäß seiner eigenen Datenschutzrichtlinie. Die Werbung selbst <strong>liest Ihre Skripte oder
-Koordinaten nicht</strong>.</p>
+<h2>2. Welche Informationen wir erfassen und wofür</h2>
 
-<h3>1.4 Offenlegung von Drittanbieter-SDKs</h3>
-<p>Jedes Werbe- oder Analyse-SDK, das in diese App integriert wird, wird auf dieser Seite genannt — Name,
-Datenumfang und Link zur offiziellen Datenschutzrichtlinie — bevor es in einer Version ausgeliefert wird.
-<strong>Ein Drittanbieter, der nicht auf dieser Seite erscheint, läuft nicht in dieser App.</strong>
-Aktualisierungen der Liste werden zusammen mit der App-Version veröffentlicht.</p>
+<h3>2.1 Skriptdaten: bleiben auf dem Gerät</h3>
+<p>Die Berührungs-/Wischpositionen, Koordinaten, Dauern, Verzögerungen und Schleifenzähler, die Sie im Schwebefenster festlegen, sowie die von Ihnen selbst eingegebenen Skriptnamen und -beschreibungen werden in das private Verzeichnis der App auf Ihrem Gerät geschrieben.
+Sie werden nicht hochgeladen und nicht für die Werbeausrichtung verwendet. Beim Deinstallieren der App werden sie gelöscht.</p>
 
-<h2>2. Die Bedienungshilfe-Berechtigung und was sie sehen kann</h2>
-<p>Auto Touch benötigt die Bedienungshilfe-Berechtigung (Barrierefreiheit) des Systems, um Widget-Beschriftungen zu
-lesen und an den von Ihnen festgelegten Positionen Tippen und Wischen auszuführen. Diese Berechtigung:</p>
+<h3>2.2 Informationen für die Werbeleistung (erfolgt unabhängig davon, ob Sie der Personalisierung zustimmen)</h3>
+<p>Um Werbung zu laden und auszuliefern sowie Deduplizierung, Attribution und Missbrauchsbekämpfung durchzuführen, verarbeitet das Werbe-SDK (Google AdMob) Folgendes:</p>
 <ul>
-  <li>wird von Ihnen in den Systemeinstellungen erteilt und kann dort jederzeit widerrufen werden; sobald sie deaktiviert ist, stoppt die gesamte Automatisierung sofort;</li>
-  <li>wird ausschließlich zur Ausführung <strong>der von Ihnen selbst zusammengestellten Skripte</strong> verwendet; die App durchsucht, aufzeichnet oder hochlädt Inhalte anderer Apps nicht eigenmächtig;</li>
-  <li>wird nicht verwendet, um sensible Inhalte wie Passwörter oder Zahlungsdaten, die Sie in anderen Apps eingeben, zu erkennen, zu protokollieren oder hochzuladen.</li>
+  <li>Geräte- und App-Informationen: Gerätemodell, Marke, Betriebssystemversion, Bildschirmauflösung und Pixeldichte, App-Version, Sprache und Region;</li>
+  <li>Netzwerk-Informationen: Netzwerktyp (WLAN / mobil), die aus der IP abgeleitete ungefähre Region (die vollständige IP wird nicht gespeichert);</li>
+  <li>Werbekennung: die Geräte-Werbekennung (GAID) für Werbeleistung und Attribution, die Sie in den Systemeinstellungen zurücksetzen oder deaktivieren können.</li>
 </ul>
-<p class="note">Empfehlung: Führen Sie keine Automatisierung auf Seiten durch, die Zahlungen, Bankgeschäfte oder
-Identitätsprüfungen betreffen. Skriptkoordinaten werden auf Ihrem Gerät gespeichert — berücksichtigen Sie dies,
-wenn Sie das Gerät teilen oder ein Backup wiederherstellen.</p>
+<p>Wenn Sie zustimmen, darf Google die oben genannten Daten für die personalisierte Ausrichtung verwenden; wenn Sie ablehnen, wird die Werbung nicht-personalisiert ausgeliefert (siehe Abschnitt 1). Die Werbung selbst liest weder Ihre Skriptinhalte noch Ihre Koordinaten.</p>
 
-<h2>3. Speicherung, Weitergabe und Schutz</h2>
+<h3>2.3 Informationen für Analyse und Absturzdiagnose (nur nach Ihrer Zustimmung erfasst)</h3>
+<p>Erst nachdem Sie eine Zustimmung wie in Abschnitt 1 gewählt haben (bei EWR-/UK-Nutzern: Zustimmung zur Analyse im UMP-Interface), aktiviert die App Google-Firebase-Analytics und erfasst:</p>
 <ul>
-  <li><strong>Speicherort und -dauer</strong>: Lokale Daten befinden sich im appprivaten Speicher; über das Netzwerk übertragene Daten werden auf dem Server höchstens 12 Monate aufbewahrt und anschließend gelöscht oder anonymisiert;</li>
-  <li><strong>Transportsicherheit</strong>: Alle Netzwerkanfragen verwenden HTTPS, und Werbe- oder Analyseanfragen enthalten niemals Ihre Skriptinhalte;</li>
-  <li><strong>Weitergabenumfang</strong>: Wir geben Daten nur in dem für Werbung, Analyse und Fehlerbehebung erforderlichen Umfang an Dritte weiter und verkaufen Ihre persönlichen Daten nicht. Wir dürfen Daten offenlegen, wenn das Gesetz uns dazu zwingt, und wir benachrichtigen Sie, soweit dies zulässig ist;</li>
-  <li><strong>Internationale Übermittlungen</strong>: Wenn ein Drittdienst Übermittlungen über Ihre Region hinaus beinhaltet, weisen wir bei der Integration gesondert auf dieser Seite darauf hin und bitten um Ihre Zustimmung.</li>
+  <li>Nutzungsinformationen: Ereignisse wie die Anzahl der Funktionsberührungen und die Erfolgs-/Fehlergebniscodes von Skriptläufen;</li>
+  <li>Diagnoseinformationen: Absturzstapel und deren Fundstellen zur Stabilitätsanalyse.</li>
 </ul>
+<p>Wenn Sie ablehnen, wird Firebase niemals initialisiert, und keine der obigen Nutzungs- und Absturzdaten verlässt Ihr Gerät — auch nur ein Byte nicht.</p>
 
-<h2>4. Ihre Steuerungsmöglichkeiten</h2>
+<h2>3. Die Bedienungshilfe-Berechtigung: warum sie nötig ist und was sie nicht tut</h2>
+<p>Die App benötigt die System-Berechtigung „Bedienungshilfe-Dienst", um automatische Berührungen und Wischgesten auszuführen — die übliche Art, wie Automatisierungstools dieser Kategorie Klicks umsetzen. Zu dieser Berechtigung beachten Sie bitte:</p>
 <ul>
-  <li>Löschen Sie einzelne Skripte in der App oder widerrufen Sie alle lokalen Daten über „Einstellungen → Apps → Speicher → Daten löschen“;</li>
-  <li>Widerrufen Sie die Bedienungshilfe-Berechtigung jederzeit in den Systemeinstellungen;</li>
-  <li>Setzen Sie die Geräte-Werbungskennung zurück oder deaktivieren Sie sie, um interessenbasierte Werbung abzulehnen (Sie sehen weiterhin Werbung, nur keine personalisierte);</li>
-  <li>Blockieren Sie den Netzwerkzugriff für diese App in den Systemeinstellungen, können keine Werbung geladen und keine Diagnosen gemeldet; Ihre lokalen Skripte funktionieren weiterhin.</li>
+  <li>Sie aktivieren sie selbst in den Systemeinstellungen und können sie dort jederzeit wieder deaktivieren; einmal deaktiviert, verliert die App sofort sämtliche Automatisierungsfähigkeit;</li>
+  <li>Die App nutzt sie ausschließlich, um<strong>die von Ihnen selbst erstellten Skripte</strong> auszuführen; sie durchsucht, protokolliert oder überträgt im Hintergrund nicht die Bildschirminhalte anderer Apps;</li>
+  <li>Sensible Inhalte, die Sie in anderen Apps eingeben — Passwörter, Zahlungsdaten und dergleichen — erkennt, protokolliert oder überträgt die App nicht.</li>
+</ul>
+<p class="note">Empfehlung: Führen Sie keine Automatisierungsskripte auf Seiten aus, die Zahlungen, Bankgeschäfte oder Identitätsverifikation betreffen; Skriptkoordinaten werden auf dem Gerät gespeichert, achten Sie daher beim Teilen oder Sichern Ihres Telefons auf möglicherweise enthaltene Informationen.</p>
+
+<h2>4. Liste der Drittanbieter-SDKs</h2>
+<p>Jedes Drittanbieter-SDK, das die App einbindet, ist unten aufgeführt, jeweils in einem Satz zu „wer, welche Daten, zu welchem Zweck"; die vollständige und maßgebliche Verarbeitung regelt die jeweilige offizielle Datenschutzrichtlinie des Anbieters (über den Link einsehbar).
+<strong>Alle Drittanbieter, die auf dieser Seite nicht erscheinen, laufen nicht in der App</strong>, und Aktualisierungen dieser Liste werden mit App-Updates ausgeliefert.</p>
+<ul>
+  <li><strong>Google AdMob (Google Mobile Ads SDK)</strong>: liefert Werbung aus; verarbeitet Geräte- und Netzwerk-Informationen sowie die Werbekennung (GAID) für Auslieferung, Deduplizierung, Attribution und Missbrauchsbekämpfung; personalisiert bei Zustimmung, nicht-personalisiert bei Ablehnung, und Sie können die Werbekennung in den Systemeinstellungen zurücksetzen oder deaktivieren. Siehe <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a> und <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
+  <li><strong>Google Firebase Analytics</strong>: nur nach Ihrer Zustimmung aktiviert; erfasst Nutzungs- und Absturzereignisse sowie einige Geräteinformationen für Nutzungsstatistiken und Stabilitätsanalyse; bei Ablehnung weder initialisiert noch übertragend. Siehe <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
+  <li><strong>Google User Messaging Platform (UMP)</strong>: zeigt EWR-/UK-Nutzern ein konformes Zustimmungsinterface und zeichnet Ihre Zustimmungsentscheidungen auf und übergibt sie zur Auswertung an AdMob und Firebase; verarbeitet grundlegende Geräte- und App-Informationen sowie eine ungefähre Region. Siehe <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
+  <li><strong>Google Play-Dienste (Google Play Services)</strong>: stellt zugrundeliegende Plattformfähigkeiten wie die Werbekennung (GAID) bereit, aus denen die App die Werbekennung liest. Siehe <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>.</li>
 </ul>
 
-<h2>5. Minderjährige</h2>
-<p>Diese App richtet sich an erwachsene Nutzer. Wenn Minderjährige sie nutzen, dann nur mit Wissen und Einwilligung
-einer erziehungsberechtigten Person. Wir schalten keine personalisierte Werbung, die sich an Minderjährige richtet.</p>
+<h2>5. Speicherung, Weitergabe und Schutz von Informationen</h2>
+<ul>
+  <li>Speicherort und -dauer: Geräte-Daten liegen im privaten Verzeichnis der App; über das Netzwerk übertragene Werbe- und Analysedaten werden von Google gemäß seinen Richtlinien verarbeitet, und die von der App an ihren Server übermittelten Daten werden höchstens 12 Monate aufbewahrt und danach gelöscht oder anonymisiert;</li>
+  <li>Übertragungssicherheit: alle Netzwerkanfragen nutzen HTTPS, und Werbe- und Analysenanfragen enthalten Ihre Skriptinhalte nicht;</li>
+  <li>Weitergabegradius: wir teilen mit den oben genannten Drittanbietern nur, soweit es für Werbung, Analyse und Fehlerbehebung nötig ist, und verkaufen Ihre personenbezogenen Daten nie; sofern gesetzlich oder durch eine zuständige Behörde verlangt, können wir Angaben bereitstellen und informieren Sie, soweit zulässig;</li>
+  <li>Grenzüberschreitende Übermittlung: Google AdMob / Firebase / UMP können eine Datenübermittlung ins Ausland beinhalten (z. B. an Googles globale Server); wir stützen diese Übermittlung auf dieses Dokument und die Standardvertragsklauseln (SCC) der jeweiligen Drittanbieter sowie sonstige Compliance-Mechanismen.</li>
+</ul>
 
-<h2>6. Änderungen dieser Richtlinie</h2>
-<p>Wenn sich Funktionen oder die Datenverarbeitung ändern, aktualisieren wir diese Seite und zeigen die neueste
-Fassung in der App an. Alles, was Datenerhebungen ergänzt, neue Dritte hinzufügt oder Zwecke ändert, wird vor dem
-Inkrafttreten hervorgehoben.</p>
+<h2>6. Ihre Kontrolle und Rechte</h2>
+<p>Sie können Ihre Informationen auf folgende Weise kontrollieren:</p>
+<ul>
+  <li>Zustimmungsentscheidung: auf dem letzten Onboarding-Bildschirm über das Kontrollkästchen; EWR-/UK-Nutzer können ihre Wahl im Google-Zustimmungsinterface (UMP) treffen und jederzeit ändern;</li>
+  <li>Personalisierte Werbung deaktivieren: die Geräte-Werbekennung (GAID) in den Systemeinstellungen zurücksetzen oder deaktivieren — Sie sehen weiterhin Werbung, nur nicht mehr interessiertensbasiert ausgerichtet;</li>
+  <li>Analyse beenden: lehnen Sie die Zustimmung ab, oder löschen Sie die App-Daten und wählen erneut „Ablehnen", um die Firebase-Analyse zu deaktivieren;</li>
+  <li>Netzwerk untersagen: untersagen Sie der App in der System-„App-Verwaltung" die Netzwerknutzung — Werbung kann dann nicht laden und Laufzeitdaten nicht übertragen werden, Ihre Skripte und deren Ausführung auf dem Gerät bleiben aber unberührt;</li>
+  <li>Geräte-Daten löschen: einzelne Skripte in der App löschen oder über „Einstellungen → Apps → Speicher → Daten löschen" alles auf einmal zurücksetzen; auch die Deinstallation löscht sie.</li>
+</ul>
+<p>DSGVO-Betroffenenrechte (für Nutzer im EWR): Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer personenbezogenen Daten, auf Einschränkung oder Widerspruch der Verarbeitung, auf Datenübertragbarkeit und darauf, Ihre Zustimmung jederzeit zu widerrufen (der Widerruf beeinflusst nicht die vor dem Widerruf vorgenommene Verarbeitung),
+sowie das Recht, Beschwerde bei der Datenschutz-Aufsichtsbehörde Ihres Mitgliedstaats des gewöhnlichen Aufenthalts zu erheben. Um diese Rechte auszuüben oder Ihre Zustimmung zu widerrufen, senden Sie eine E-Mail an <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> und geben Sie die App-Version an (siehe „Einstellungen → Version").</p>
 
-<h2>7. Kontakt</h2>
-<p>Für Fragen zu dieser Richtlinie oder zur Ausübung Ihrer Rechte auf Auskunft, Berichtigung und Löschung wenden Sie
-sich per E-Mail an die Entwickler: <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, unter Angabe der
-App-Version (siehe „Einstellungen → Version“).</p>
+<h2>7. Minderjährige</h2>
+<p>Die App richtet sich an erwachsene Nutzer. Wenn Sie sie auf dem Gerät eines Minderjährigen verwenden, tun Sie dies, nachdem der Erziehungsberechtigte informiert und eingewilligt hat; wir richten keine personalisierte Werbeanzeige auf Minderjährige.</p>
 
-<!-- ============================ Part 2: Terms of Service ============================ -->
+<h2>8. Aktualisierungen dieses Dokuments</h2>
+<p>Wenn sich Funktionen oder Verarbeitungspraktiken ändern, aktualisieren wir diese Seite und zeigen die neueste Version in der App an. Bei Änderungen, die neue Datenerfassung, einen neuen Drittanbieter oder einen Zweckwechsel betreffen, kündigen wir dies vor dem Inkrafttreten deutlich an und holen bei Bedarf Ihre Zustimmung erneut ein.</p>
+
+<h2>9. Kontakt</h2>
+<p>Bei Fragen zu diesem Dokument oder wenn Sie Rechte wie Auskunft, Berichtigung, Löschung oder Widerruf der Zustimmung ausüben möchten, senden Sie eine E-Mail an den Entwickler unter <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> und geben Sie die App-Version an (siehe „Einstellungen → Version").</p>
+
+<!-- ============================ Teil 2: Nutzungsbedingungen ============================ -->
 <h2 class="doc-title" id="terms">Nutzungsbedingungen</h2>
-<p class="meta">Gültig ab: September 2026 | Produkt: Auto Touch (diese App) | Diese App <strong>erfordert eine Internetverbindung</strong></p>
+<p class="meta">Datum des Inkrafttretens: September 2026｜Produkt: Auto Touch</p>
 
-<p>Auto Touch ist ein Werkzeug zur <strong>UI-Automatisierung auf dem Gerät</strong>. Es wird <strong>kostenlos und
-finanziert durch Werbung</strong> angeboten und benötigt für den vollen Funktionsumfang eine Internetverbindung.
-Durch Herunterladen, Installieren oder Verwenden der App bestätigen Sie, dass Sie diese Bedingungen gelesen und
-akzeptiert haben.</p>
+<p>Indem Sie beim ersten Start im Onboarding auf „Loslegen" tippen, bestätigen Sie, dass Sie diese Bedingungen gelesen und akzeptiert haben; Sie können die Nutzung jederzeit einstellen und die App deinstallieren. Die App ist ein Tool für die Automatisierung der Bildschirmbedienung auf dem Gerät,
+arbeitet nach dem Modell „kostenlos + Finanzierung über Werbung" und benötigt eine Netzwerkverbindung, um diese Fähigkeiten vollständig bereitzustellen.</p>
 
-<h2>1. Was die App tut</h2>
-<p>Die App zeichnet eine Reihe von Aktionen auf Ihrem Telefon auf und speichert sie — Tippen nach Koordinaten,
-Tippen nach Widget-Text, Wischen, Home und Zurück — und spielt sie in der von Ihnen festgelegten Reihenfolge und
-mit den von Ihnen festgelegten Verzögerungen ab. Sie <strong>führt niemals eine Aktion aus, die Sie nicht
-festgelegt haben</strong>, und bietet keinerlei Inhalte, Transaktionen oder verwaltete Dienste in Ihrem Namen an.</p>
-<p>Alle Funktionen sind kostenlos. <strong>Es wird nichts berechnet, es gibt kein Abonnement und nichts wird hinter
-einer Zahlung freigeschaltet.</strong> Wenn Sie in der App einen Eintrag sehen, der behauptet, durch Zahlung
-könnten „Skripte freigeschaltet“ oder „die Ausführung beschleunigt“ werden, handelt es sich um irreführende
-Werbung — glauben Sie das nicht.</p>
+<h2>1. Was wir bereitstellen</h2>
+<p>Die App bietet Folgendes: auf Ihrem Telefon zeichnet sie eine Reihe von Operationsskripten auf und speichert sie (Berührung nach Koordinate, Berührung nach Bedienelement-Text, Wischen, Home-Taste, Zurück-Taste) und führt sie automatisch in der von Ihnen angeordneten Reihenfolge und mit den von Ihnen festgelegten Verzögerungen aus.
+Die App führt keine von Ihnen nicht angeordnete Aktion aus und bietet keine Inhalte, Transaktionen oder verwalteten Dienste in Ihrem Namen an.</p>
+<p>Alle Funktionen der App sind kostenlos; es gibt keine Gebühren, keine Abos und keine kostenpflichtigen Freischaltungen. Wenn Sie im App-Inneren Einstiege sehen, die „Skripte gegen Bezahlung freischalten" oder „Ausführung beschleunigen" versprechen, handelt es sich um irreführende Werbeinhalte — vertrauen Sie ihnen bitte nicht.</p>
 
-<h2>2. Netzwerknutzung und Werbung</h2>
+<h2>2. Netzwerk und Werbung</h2>
 <ul>
-  <li>um die App kostenlos zu halten, <strong>zeigt sie Werbung</strong> an, die von Drittanbieter-Werbeplattformen bereitgestellt und platziert wird;</li>
-  <li>das Laden von Werbung und das Melden von Laufzeitdiagnosen <strong>erfordern eine Internetverbindung</strong>; der genaue Datenumfang ist in der Datenschutzrichtlinie auf dieser Seite beschrieben;</li>
-  <li>Sie können die Geräte-Werbungskennung in den Systemeinstellungen zurücksetzen oder deaktivieren, um personalisierte Einblendung zu reduzieren; blockieren Sie den Netzwerkzugriff für diese App in den Systemeinstellungen, stoppt das Laden von Werbung, aber Ihre lokalen Skripte bleiben nutzbar;</li>
-  <li>Drittanbieter-Werbe- und -Analysedienste sind für ihre eigenen Inhalte, ihre Verfügbarkeit und ihre eigenen Bedingungen verantwortlich; jegliche Transaktion oder Streitigkeit zwischen Ihnen und diesen Diensten ist nicht der App zuzurechnen;</li>
-  <li><strong>klicken Sie keine irreführende Werbung an, um zu zahlen oder etwas herunterzuladen</strong> — die App hat keinerlei solche Zahlungsmechanismen.</li>
+  <li>Um kostenlos zu bleiben, zeigt die App von Google AdMob bereitgestellte und ausgelieferte Werbung an;</li>
+  <li>Werbung wird angezeigt, unabhängig davon, ob Sie der Personalisierung zustimmen: bei Zustimmung personalisierte Werbung und aktive Analyse, bei Ablehnung nur nicht-personalisierte Werbung und ausbleibende Analyse. Der Datenumfang ist in der Datenschutzrichtlinie auf dieser Seite beschrieben;</li>
+  <li>Das Laden von Werbung erfordert eine Netzwerkverbindung; eine Ablehnung schaltet die Werbung nicht aus und beeinträchtigt die Nutzung Ihrer Skripte auf dem Gerät nicht;</li>
+  <li>Inhalt, Verfügbarkeit und Bedingungen von Drittanbieter-Werbe- und -Analysediensten liegen in der Verantwortung dieses Drittanbieters; jede Transaktion oder Streitigkeit zwischen Ihnen und ihnen steht in keinem Zusammenhang mit der App;</li>
+  <li>Klicken Sie keine irreführende Werbung an, um zu zahlen oder herunterzuladen — die App besitzt keinerlei solche kostenpflichtige Freischaltmechanik.</li>
 </ul>
 
-<h2>3. Ihre Verantwortung und zulässige Nutzung</h2>
-<p>Nutzen Sie die App im rechtlich zulässigen Rahmen und tragen Sie die Folgen Ihrer eigenen Nutzung. Sie verpflichten sich, die App nicht für Folgendes zu verwenden:</p>
+<h2>3. Zulässige Nutzung</h2>
+<p>Sie sollten die App innerhalb der Grenzen des Gesetzes nutzen und die Folgen Ihrer Nutzung selbst tragen. Sie verpflichten sich, die App nicht zu verwenden für:</p>
 <ul>
-  <li>Massenkäufe von Tickets oder Waren, das Anlegen von Fake-Konten, massenhaftes Liken/Folgen oder sonstige <strong>Störungen der normalen Ordnung anderer Produkte</strong>;</li>
+  <li>Störungen der normalen Ordnung anderer Produkte, etwa Schnappen von Tickets/Waren, Scheinregistrierungen, massenhaftes Liken oder Folgen oder Cheat-Tools;</li>
   <li>Belästigung anderer, massenhaftes Senden irrelevanter Nachrichten oder Verletzung der Rechte anderer;</li>
-  <li>Umgehung von Sicherheitsprüfungen anderer Apps oder Zugriff auf Daten oder Funktionen, die deren Bedingungen verbieten;</li>
-  <li>bösartiges Ausnutzen der Werbeerlöse der App durch skriptgesteuerte Klicks oder Einblendungen;</li>
-  <li>Dekompilierung, Rückentwicklung oder Weiterverbreitung der App oder das Entfernen oder Verändern ihrer Marken- und Werbedarstellung.</li>
+  <li>Umgehung der Sicherheitsprüfungen anderer Apps oder Zugriff auf deren durch die Bedingungen verbotene Daten oder Funktionen;</li>
+  <li>bösartiges Aushöhlen der Werbeeinnahmen der App durch skriptgesteuerte gefälschte Klicks oder Impressions;</li>
+  <li>Cracken, Rückentwickeln oder Weiterverbreiten der App oder Entfernen oder Verändern ihrer Kennzeichnung und Werbeanzeige.</li>
 </ul>
-<p class="note">Die meisten Apps verbieten in ihren eigenen Nutzungsbedingungen Automatisierungsskripte und
-Fremdtools. Prüfen Sie vor der Verwendung dieser App, dass die Ziel-App automatisierte Bedienung erlaubt;
-anderenfalls tragen Sie das daraus resultierende Kontorisiko oder Datenverlust allein.</p>
+<p class="note">Die Nutzungsbedingungen der meisten Apps untersagen Automatisierungsskripte und externe Tools. Prüfen Sie vor der Nutzung der App zunächst, ob die Ziel-App automatisierte Bedienung gestattet; andernfalls tragen Sie die daraus folgenden Konsequenzen wie Kontorisiken oder Datenverlust selbst.</p>
 
-<h2>4. Nutzungsgrenzen und Risiken</h2>
+<h2>4. Risiken und Freizeichnung</h2>
 <ul>
-  <li>die App hängt von der Bedienungshilfe des Systems ab, die Sie selbst in den Systemeinstellungen aktivieren; ein Widerruf der Berechtigung stoppt alle Funktionen;</li>
-  <li>Skripte spielen nach Koordinaten und Text ab, sodass ein Redesign, ein unerwarteter Dialog oder eine andere Auflösung einen Tipp an die falsche Stelle senden kann. Führen Sie sie <strong>nicht</strong> auf nicht umkehrbaren Seiten wie Zahlungen, Überweisungen oder Datenlöschung aus;</li>
-  <li>lange unbeaufsichtigte Läufe können die Betrugspräventions-Policies des Systems oder anderer Apps auslösen; beginnen Sie mit einer kleinen Schleifenzählung zur Überprüfung;</li>
-  <li>die App benötigt eine Internetverbindung; die Nutzung über mobile Daten kann Gebühren verursachen, die Sie tragen;</li>
-  <li>die App wird „wie besehen“ bereitgestellt, ohne ausdrückliche oder stillschweigende Gewährleistung für Verfügbarkeit oder Genauigkeit, und wir haften nicht für indirekte Verluste.</li>
+  <li>Die App ist vom System-„Bedienungshilfe-Dienst" abhängig, den Sie selbst in den Systemeinstellungen aktivieren; schalten Sie die Berechtigung aus, stoppt sämtliche Fähigkeit;</li>
+  <li>Skripte laufen nach Koordinate und Text, daher können ein UI-Redesign, ein überlagerndes Pop-up oder eine Auflösungsänderung zu einem Fehlertipp führen. Führen Sie sie nicht auf unumkehrbaren Seiten wie Zahlung, Geldüberweisung oder Datenlöschung aus;</li>
+  <li>Langes automatisiertes Ausführen kann die Risiko-/Missbrauchskontrollen des Systems oder anderer Apps auslösen; wir empfehlen, zuerst mit einer kleinen Schleifenzahl zu validieren;</li>
+  <li>Die App benötigt eine Netzwerkverbindung, und das Ausführen über mobile Daten kann Datenverkehrsgebühren verursachen, die Sie tragen;</li>
+  <li>Die App wird „wie besehen" bereitgestellt, ohne ausdrückliche oder stillschweigende Garantie für Verfügbarkeit oder Genauigkeit und ohne Haftung für mittelbare Verluste.</li>
 </ul>
 
-<h2>5. Daten und Backups</h2>
-<p>Die von Ihnen erstellten Skripte bleiben auf <strong>Ihrem Gerät</strong> und gehören Ihnen. Die App trägt keine
-Backup-Pflicht: beim Wechsel des Geräts, beim Löschen der App-Daten oder bei der Deinstallation werden alle Skripte
-gelöscht. Wie die Daten verarbeitet werden (einschließlich dessen, was für Werbung oder Analyse gemeldet werden darf),
-ist in der Datenschutzrichtlinie auf dieser Seite beschrieben.</p>
+<h2>5. Daten und Sicherung</h2>
+<p>Die von Ihnen erstellten Skripte werden nur auf dem Gerät gespeichert und gehören Ihnen. Die App hat keine Sicherungspflicht: Gerätewechsel, Löschen der Daten oder Deinstallieren der App verlieren alle Skripte. Wie Skriptdaten verarbeitet werden (einschließlich dessen, was ggf. für Werbung und Analyse übermittelt wird) ist in der Datenschutzrichtlinie auf dieser Seite beschrieben.</p>
 
 <h2>6. Geistiges Eigentum</h2>
-<p>Die geistigen Eigentumsrechte am Code, am Design der Oberfläche und an den Materialien der App — ausgenommen
-Nutzerinhalte — gehören den Entwicklern oder den jeweiligen Rechteinhabern. Die Skriptinhalte, die Sie mit der App
-erstellen, gehören Ihnen oder dem ursprünglichen Rechteinhaber.</p>
+<p>Die Rechte am Programm der App, ihrem Design und den sonstigen Materialien außer den Nutzerninhalten stehen dem Entwickler bzw. den jeweiligen Rechteinhabern zu. Die Rechte an den Skriptinhalten, die Sie mit der App erstellen, stehen Ihnen oder den ursprünglichen Rechteinhabern zu.</p>
 
 <h2>7. Änderungen und Beendigung dieser Bedingungen</h2>
-<p>Wir können diese Bedingungen aufgrund von Funktionsänderungen, Änderungen des Geschäftsmodells oder rechtlichen
-Erfordernissen überarbeiten; die überarbeiteten Bedingungen treten mit der Veröffentlichung auf dieser Seite in
-Kraft, und wesentliche Änderungen werden in der App hervorgehoben. Wenn Sie mit einer Änderung nicht einverstanden
-sind, beenden Sie die Nutzung und deinstallieren Sie die App. Sie können die App jederzeit beenden; die Klauseln
-zu Nutzungsgrenzen, Haftungsbeschränkung und geistigem Eigentum bleiben über die Beendigung hinaus wirksam.</p>
+<p>Wir können diese Bedingungen aufgrund von Funktionsänderungen, Änderungen des Geschäftsmodells oder rechtlichen Anforderungen aktualisieren; die aktualisierten Bedingungen treten mit Veröffentlichung auf dieser Seite in Kraft, und wesentliche Änderungen werden in der App deutlich angekündigt. Wenn Sie mit den Änderungen nicht einverstanden sind, stellen Sie die Nutzung bitte ein und deinstallieren die App.
+Sie können die Nutzung jederzeit einstellen; die Klauseln über Nutzungsbeschränkungen, Freizeichnung und geistiges Eigentum bleiben nach Beendigung dieser Bedingungen wirksam.</p>
 
 <h2>8. Kontakt</h2>
-<p>Für Fragen zu diesen Bedingungen wenden Sie sich per E-Mail an die Entwickler:
-<a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, unter Angabe der App-Version
-(siehe „Einstellungen → Version“).</p>
+<p>Bei Fragen zu diesen Bedingungen senden Sie eine E-Mail an den Entwickler unter <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> und geben Sie die App-Version an (siehe „Einstellungen → Version").</p>
 
 </body>
 </html>

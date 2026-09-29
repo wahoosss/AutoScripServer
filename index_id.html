@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <!--
     Deployable merged document (Indonesian): Privacy Policy + Terms of Service in one page, loaded remotely
-    by AgreementActivity's WebView (matches policy_url_id in strings.xml).
+    by AgreementActivity's WebView (matches policy_url_id in strings.xml; note the app resource qualifier for
+    Indonesian is values-in, but this hosted file is index_id.html).
     This is the source of the copy that goes on the public host, not an assets-local file; edit here and redeploy.
 
     Maintenance rule:
-    - index_zh.html (Chinese) is the AUTHORITATIVE wording; this file mirrors it section by section — when the
-      Chinese changes, update ALL language copies in the same commit, never one file;
-    - this app is free and ad-financed and it does use the network; ads and diagnostics are stated in the
-      present tense, third-party SDKs are disclosed on this page;
-    - whenever a new data processor (ad / analytics SDK) is actually integrated, add its name, data scope and
-      official privacy-policy link here (and in every other language copy) BEFORE deploying the release.
-    - Palette follows the app's dark theme (ui_bg_window #121212 / ui_text_primary #FFFFFF / ui_primary #4CAF50).
+    - Compliance baseline: distributed via Google Play; privacy compliance follows Google Play policies + GDPR (EEA/UK);
+    - this app is a free, ad-financed, networked tool; ads and diagnostics are stated in the present tense, third-party
+      SDKs are disclosed on this page;
+    - consent model (must match the code): the last onboarding screen shows this document with a pre-checked box; the user
+      actively tapping "Mulai" = consent, unchecking = decline. Declining still shows non-personalized ads but keeps
+      Firebase analytics off and every on-device feature working. EEA/UK users additionally choose via Google UMP, and
+      that choice prevails;
+    - index_zh.html (Chinese) is the AUTHORITATIVE wording; this file mirrors it section by section — when the Chinese
+      changes, update ALL language copies in the same commit, never one file;
+    - whenever a new data processor (ad / analytics / consent-management SDK) is integrated, add its name, data scope and
+      official privacy link here (and in every copy) BEFORE deploying;
+    - verified SDK links (do not fabricate): https://policies.google.com/privacy,
+      https://policies.google.com/technologies/ads, https://firebase.google.com/support/privacy
+      (https://firebase.google.com/policies is 404, do not use);
+    - style: use <strong> only for genuine key promises; privacy section order is fixed as
+      "0 at-a-glance → 1 consent → 2 collection → 3 accessibility → 4 third-party SDKs → 5 storage/sharing →
+      6 rights → 7 minors → 8 updates → 9 contact"; the at-a-glance card and the accessibility section must stay up front;
+    - Palette follows the app's dark theme (#121212 / #FFFFFF / #4CAF50).
 -->
 <html lang="id">
 <head>
@@ -43,9 +55,20 @@
     color: #AAAAAA;
     font-size: 13px;
   }
+  /* ringkasan 30 detik */
+  .summary {
+    margin: 16px 0 4px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #1C1F22;
+    border-left: 3px solid #4CAF50;
+  }
+  .summary h2 { margin: 0 0 6px; font-size: 15px; }
+  .summary ul { margin: 0; padding-left: 18px; }
+  .summary li { color: #DDDDDD; margin: 6px 0; }
   strong { color: #4CAF50; }
   a { color: #4CAF50; }
-  /* in-page navigation: jump to the start of each document */
+  /* navigasi dalam halaman */
   .nav {
     display: flex;
     flex-wrap: wrap;
@@ -57,7 +80,7 @@
     font-size: 14px;
   }
   .nav a { text-decoration: none; }
-  /* big title per document; the underline separates the two documents */
+  /* judul utama tiap dokumen */
   .doc-title {
     font-size: 18px;
     margin: 34px 0 10px;
@@ -70,165 +93,167 @@
 <body>
 
 <h1>Kebijakan Privasi &amp; Ketentuan Layanan</h1>
-<p class="meta">Produk: Auto Touch (aplikasi ini) | Aplikasi ini <strong>membutuhkan koneksi jaringan</strong></p>
+<p class="meta">Produk: Auto Touch (selanjutnya "Aplikasi") | Didistribusikan melalui Google Play | Aplikasi ini memerlukan koneksi jaringan</p>
 
 <nav class="nav">
   <a href="#privacy">Kebijakan Privasi</a>
   <a href="#terms">Ketentuan Layanan</a>
 </nav>
 
-<!-- ============================ Part 1: Privacy Policy ============================ -->
+<!-- ============================ Bagian 1: Kebijakan Privasi ============================ -->
 <h2 class="doc-title" id="privacy">Kebijakan Privasi</h2>
-<p class="meta">Berlaku sejak: September 2026 | Produk: Auto Touch (aplikasi ini) | Aplikasi ini <strong>membutuhkan koneksi jaringan</strong></p>
+<p class="meta">Tanggal berlaku: September 2026 | Produk: Auto Touch</p>
 
-<p>Auto Touch adalah alat otomatisasi antarmuka yang berjalan di perangkat Anda. Aplikasi ini ditawarkan
-<strong>secara gratis dan dibiayai oleh iklan</strong>: aplikasi terhubung ke jaringan untuk memuat iklan dan
-melaporkan diagnostik minimal yang diperlukan agar tetap berjalan. Bacalah kebijakan ini sebelum menggunakan;
-dengan terus menggunakan aplikasi ini, Anda berarti menerima kebijakan ini.</p>
+<p>Aplikasi ini adalah alat yang memutar skrip otomatisasi layar buatan Anda sendiri, berjalan di ponsel Anda. Ia beroperasi dengan model "gratis + iklan",
+sehingga terhubung ke jaringan untuk memuat iklan dan, setelah Anda menyetujui, mengirimkan statistik runtime dan informasi crash yang diperlukan. Aplikasi ini didistribusikan
+melalui Google Play, dan kepatuhan privasinya mengikuti kebijakan Google Play serta Peraturan Perlindungan Data Umum UE (GDPR). Berikut ringkasan singkat, lalu rinciannya.</p>
 
-<h2>1. Apa yang kami kumpulkan dan mengapa</h2>
+<div class="summary">
+  <h2>0. Ringkasan 30 detik</h2>
+  <ul>
+    <li>Skrip yang Anda susun (posisi ketukan, koordinat, teks, durasi, jumlah pengulangan, nama skrip)<strong>hanya disimpan di perangkat</strong>, tidak pernah diunggah, dan tidak pernah dipakai sebagai dasar penargetan iklan.</li>
+    <li>Aplikasi ini tetap gratis berkat iklan Google AdMob, yang memakai informasi perangkat, jaringan, dan pengenal iklan (GAID).</li>
+    <li>Pada peluncuran pertama Anda dapat menyetujui atau menolak: setuju = iklan terpersonalisasi + analitik aktif; tolak = hanya iklan non-pribadi, analitik mati. <strong>Pilih mana pun, semua fungsi di perangkat tetap dapat digunakan.</strong></li>
+    <li>Kami tidak mengumpulkan kontak, SMS, riwayat panggilan, foto, atau lokasi tepat Anda, dan tidak membaca kata sandi atau informasi pembayaran yang Anda ketik di aplikasi lain.</li>
+  </ul>
+</div>
 
-<h3>1.1 Data skrip: tetap di perangkat Anda</h3>
-<p>Ketukan dan gesekan yang Anda tandai, koordinatnya, durasi, tunda mulai, jumlah pengulangan, serta nama dan
-deskripsi skrip yang Anda tulis sendiri, ditulis ke <strong>penyimpanan privat aplikasi</strong> di perangkat Anda.
-Data tersebut <strong>tidak pernah diunggah</strong> dan tidak pernah digunakan untuk penargetan iklan. Menghapus
-instalasi aplikasi akan menghapusnya.</p>
-
-<h3>1.2 Data yang diperlukan untuk menayangkan iklan dan menjaga aplikasi berfungsi</h3>
-<p>Untuk memuat iklan, mengukur ketersediaan fitur, dan mendiagnosis crash, kami mengumpulkan:</p>
+<h2>1. Bagaimana kami memperoleh persetujuan Anda</h2>
+<p>Pada peluncuran pertama, Aplikasi menampilkan dokumen ini di layar onboarding terakhir dengan kotak centang yang sudah tercentang secara default. Persetujuan Anda didasarkan<strong>pada tindakan Anda menekan "Mulai" secara aktif</strong>, bukan pada status default:</p>
 <ul>
-  <li><strong>Informasi perangkat dan aplikasi</strong>: model, merek, versi OS, resolusi dan densitas layar, versi aplikasi, bahasa dan wilayah;</li>
-  <li><strong>Informasi jaringan</strong>: jenis koneksi (Wi-Fi / data seluler), wilayah kasar yang diturunkan dari alamat IP (IP penuh tidak disimpan);</li>
-  <li><strong>Pengidentifikasi iklan</strong>: pengidentifikasi iklan perangkat yang digunakan untuk penayangan dan atribusi iklan. Anda dapat mengatur ulang atau mematikannya di pengaturan sistem;</li>
-  <li><strong>Informasi penggunaan dan diagnostik</strong>: seberapa sering fitur digunakan, kode hasil sukses/gagal dari eksekusi skrip, tumpahan crash dan lokasi kejadiannya.</li>
+  <li><strong>Biarkan tercentang dan tekan "Mulai" = setuju</strong>: iklan terpersonalisasi dan Google Firebase Analytics diaktifkan;</li>
+  <li><strong>Kosongkan centang lalu tekan "Mulai" = tolak</strong>: analitik tetap mati dan data penggunaan serta crash Anda tidak dikumpulkan; agar Aplikasi tetap gratis, iklan masih ditampilkan, tetapi hanya yang non-pribadi;</li>
+  <li>Setuju atau tolak tidak memengaruhi merekam maupun menjalankan skrip — semua fungsi Aplikasi di perangkat tetap dapat digunakan sepenuhnya.</li>
 </ul>
-<p>Tidak satu pun di atas mencakup kontak, SMS, riwayat panggilan, galeri foto, atau lokasi akurat Anda, dan tidak
-pernah mencakup kata sandi atau detail pembayaran yang Anda ketik di aplikasi lain.</p>
+<p class="note">Tentang "iklan non-pribadi": saat meminta dan menampilkan iklan, SDK iklan tetap mengirim informasi perangkat, jaringan, dan pengenal iklan ke Google untuk pengiriman iklan, pembatasan frekuensi, atribusi, dan pencegahan penyalahgunaan.
+Informasi itu tidak digunakan untuk membangun profil minat Anda atau untuk penargetan terpersonalisasi. "Non-pribadi" membatasi cara penargetan iklan, bukan berarti nol data sepenuhnya.</p>
+<p>Pengguna di Kawasan Ekonomi Eropa (EEA) dan Inggris: Anda juga akan melihat antarmuka persetujuan standar dari Google (User Messaging Platform, UMP). Pilihan Anda di antarmuka itu mengesampingkan kotak centang di atas dan
+langsung menentukan apakah iklan terpersonalisasi dan apakah analitik diaktifkan, serta dapat diubah kapan pun di antarmuka itu atau di pengaturan sistem.</p>
 
-<h3>1.3 Iklan</h3>
-<p>Iklan yang ditampilkan di aplikasi disediakan dan ditempatkan oleh platform iklan pihak ketiga. Untuk pembatasan
-frekuensi, atribusi, dan deteksi kecurangan, SDK iklan memproses data perangkat dan jaringan yang tercantum di 1.2
-sesuai kebijakan privasinya sendiri. Konten iklan <strong>tidak membaca</strong> skrip atau koordinat Anda.</p>
+<h2>2. Informasi yang kami kumpulkan dan untuk apa</h2>
 
-<h3>1.4 Cara SDK pihak ketiga diungkapkan</h3>
-<p>Setiap SDK iklan atau analitik yang terintegrasi ke aplikasi ini didaftarkan di halaman ini — nama, cakupan data,
-dan tautan ke kebijakan privasi resminya — sebelum dikirim dalam sebuah rilis.
-<strong>Pihak ketiga yang tidak muncul di halaman ini tidak berjalan di dalam aplikasi ini.</strong>
-Pembaruan daftar diterbitkan bersamaan dengan versi aplikasi.</p>
+<h3>2.1 Data skrip: hanya tinggal di perangkat</h3>
+<p>Posisi ketukan/geseran, koordinat, durasi, jeda, dan jumlah pengulangan yang Anda tandai di jendela mengambang, serta nama dan deskripsi skrip yang Anda isi sendiri, ditulis ke direktori privat Aplikasi di perangkat Anda.
+Data itu tidak diunggah dan tidak dipakai sebagai dasar penargetan iklan. Mencopot Aplikasi akan menghapusnya.</p>
 
-<h2>2. Izin aksesibilitas dan apa yang dapat dilihatnya</h2>
-<p>Auto Touch memerlukan izin layanan aksesibilitas sistem untuk membaca label widget dan melakukan ketukan serta
-gesekan pada posisi yang Anda tetapkan. Izin ini:</p>
+<h3>2.2 Informasi untuk pengiriman iklan (terjadi entah Anda menyetujui personalisasi atau tidak)</h3>
+<p>Untuk memuat dan mengirim iklan serta melakukan deduplikasi, atribusi, dan pencegahan penyalahgunaan, SDK iklan (Google AdMob) memproses hal-hal berikut:</p>
 <ul>
-  <li>diberikan oleh Anda di pengaturan sistem dan dapat dicabut di sana kapan saja; setelah dimatikan, seluruh otomatisasi berhenti seketika;</li>
-  <li>hanya digunakan untuk menjalankan <strong>skrip yang Anda susun sendiri</strong>; aplikasi tidak menelusuri, merekam, atau mengunggah konten aplikasi lain atas kemauannya sendiri;</li>
-  <li>tidak digunakan untuk mengenali, mencatat, atau mengunggah konten sensitif seperti kata sandi atau informasi pembayaran yang Anda masukkan di aplikasi lain.</li>
+  <li>Informasi perangkat dan aplikasi: model perangkat, merek, versi OS, resolusi dan kepadatan piksel layar, versi aplikasi, bahasa dan wilayah;</li>
+  <li>Informasi jaringan: jenis jaringan (Wi‑Fi / seluler), wilayah kasar yang diturunkan dari IP (IP lengkap tidak disimpan);</li>
+  <li>Pengenal iklan: pengenal iklan perangkat (GAID) yang dipakai untuk pengiriman dan atribusi iklan, yang dapat Anda atur ulang atau matikan di pengaturan sistem.</li>
 </ul>
-<p class="note">Rekomendasi: jangan jalankan otomatisasi pada halaman yang menyangkut pembayaran, perbankan, atau
-verifikasi identitas. Koordinat skrip disimpan di perangkat Anda — perlu mengingat ini saat Anda membagikan
-perangkat atau memulihkan pencadangan.</p>
+<p>Saat Anda menyetujui, Google boleh memakai informasi di atas untuk penargetan terpersonalisasi; saat Anda menolak, iklan dikirim secara non-pribadi (lihat bagian 1). Konten iklan tidak membaca isi maupun koordinat skrip Anda.</p>
 
-<h2>3. Penyimpanan, pembagian, dan perlindungan</h2>
+<h3>2.3 Informasi untuk analitik dan diagnosis crash (hanya dikumpulkan setelah Anda menyetujui)</h3>
+<p>Hanya setelah Anda membuat pilihan persetujuan sebagaimana dijelaskan di bagian 1 (untuk pengguna EEA/Inggris, menyetujui analitik di UMP), Aplikasi mengaktifkan Google Firebase Analytics, yang kemudian mengumpulkan:</p>
 <ul>
-  <li><strong>Di mana dan berapa lama</strong>: data lokal berada di penyimpanan privat aplikasi; data yang dilaporkan melalui jaringan disimpan di server paling lama 12 bulan, lalu dihapus atau dianonimkan;</li>
-  <li><strong>Keamanan transmisi</strong>: semua permintaan jaringan menggunakan HTTPS, dan permintaan iklan atau analitik tidak pernah membawa konten skrip Anda;</li>
-  <li><strong>Cakupan pembagian</strong>: kami membagikan data kepada pihak ketiga hanya sejauh kebutuhan iklan, analitik, dan penelusuran gangguan, dan kami tidak menjual informasi pribadi Anda. Kami dapat mengungkapkan data ketika hukum mengharuskan demikian, dan kami akan memberi tahu Anda sejauh diizinkan;</li>
-  <li><strong>Transfer lintas batas</strong>: jika sebuah layanan pihak ketiga melibatkan transfer ke luar wilayah Anda, kami akan menyatakan secara terpisah di halaman ini saat integrasi dan meminta persetujuan Anda.</li>
+  <li>Informasi penggunaan: peristiwa seperti jumlah ketukan pada fitur dan kode hasil sukses/gagal dari eksekusi skrip;</li>
+  <li>Informasi diagnostik: tumpukan crash dan tempat kejadiannya, untuk penelusuran stabilitas.</li>
 </ul>
+<p>Jika Anda menolak, Firebase tidak pernah diinisialisasi, dan sama sekali tidak ada data penggunaan maupun crash di atas yang keluar dari perangkat Anda — bahkan satu byte pun.</p>
 
-<h2>4. Kendali Anda</h2>
+<h2>3. Izin Aksesibilitas: mengapa dibutuhkan, dan apa yang tidak dilakukannya</h2>
+<p>Aplikasi ini memerlukan izin "Layanan Aksesibilitas" sistem untuk melakukan ketukan dan geseran otomatis — cara umum alat otomatisasi semacam ini mengimplementasikan klik. Mengenai izin ini, ketahuilah:</p>
 <ul>
-  <li>Hapus skrip tertentu di dalam aplikasi, atau bersihkan semua data lokal melalui “Pengaturan → Aplikasi → Penyimpanan → Hapus data”;</li>
-  <li>Cabut izin aksesibilitas kapan saja di pengaturan sistem;</li>
-  <li>Atur ulang atau matikan pengidentifikasi iklan perangkat untuk menolak iklan berbasis minat (Anda tetap akan melihat iklan, hanya saja tidak dipersonalisasi);</li>
-  <li>Memblokir akses jaringan aplikasi ini di pengaturan sistem mencegah pemuatan iklan dan pelaporan diagnostik; skrip lokal Anda tetap berfungsi.</li>
+  <li>Anda menyalakannya sendiri di pengaturan sistem dan dapat mematikannya di tempat yang sama kapan pun; setelah dimatikan, Aplikasi segera kehilangan seluruh kemampuan otomatisasinya;</li>
+  <li>Aplikasi memakainya hanya untuk menjalankan<strong>skrip yang Anda susun sendiri</strong>; ia tidak menelusuri, mencatat, atau mengunggah isi layar aplikasi lain di latar belakang;</li>
+  <li>Konten sensitif yang Anda ketik di aplikasi lain — kata sandi, informasi pembayaran, dan sejenisnya — tidak dikenali, tidak dicatat, dan tidak diunggah oleh Aplikasi.</li>
+</ul>
+<p class="note">Saran: jangan menjalankan skrip otomatisasi pada halaman yang menyangkut pembayaran, perbankan, atau verifikasi identitas; koordinat skrip disimpan di perangkat, jadi perhatikan informasi yang mungkin terkandung di dalamnya saat Anda membagikan atau mencadangkan ponsel.</p>
+
+<h2>4. Daftar SDK pihak ketiga</h2>
+<p>Semua SDK pihak ketiga yang diintegrasikan Aplikasi tercantum di bawah, masing-masing dalam satu kalimat yang menjelaskan "siapa, data apa, untuk apa"; penanganan lengkap dan yang berlaku diatur oleh kebijakan privasi resmi masing-masing penyedia (ikuti tautannya untuk melihat).
+<strong>Pihak ketiga yang tidak tampil di halaman ini tidak berjalan di Aplikasi</strong>, dan pembaruan daftar ini dirilis bersama versi aplikasi.</p>
+<ul>
+  <li><strong>Google AdMob (Google Mobile Ads SDK)</strong>: mengirim iklan; memproses informasi perangkat dan jaringan serta pengenal iklan (GAID) untuk pengiriman, deduplikasi, atribusi, dan pencegahan penyalahgunaan; terpersonalisasi saat Anda setuju, non-pribadi saat Anda menolak, dan Anda dapat mengatur ulang atau mematikan pengenal iklan di pengaturan sistem. Lihat <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a> dan <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
+  <li><strong>Google Firebase Analytics</strong>: hanya diaktifkan setelah Anda setuju; mengumpulkan peristiwa penggunaan dan crash serta sebagian informasi perangkat, untuk statistik kegunaan fitur dan penelusuran stabilitas; tidak diinisialisasi maupun mengunggah jika Anda menolak. Lihat <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
+  <li><strong>Google User Messaging Platform (UMP)</strong>: menampilkan antarmuka persetujuan yang patuh kepada pengguna EEA/Inggris, mencatat dan meneruskan pilihan persetujuan Anda agar dibaca oleh AdMob dan Firebase; memproses informasi dasar perangkat dan aplikasi serta wilayah kasar. Lihat <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
+  <li><strong>Google Play Services (Layanan Google Play)</strong>: menyediakan kapabilitas platform mendasar seperti pengenal iklan (GAID), yang darinya Aplikasi membaca pengenal iklan. Lihat <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>.</li>
 </ul>
 
-<h2>5. Anak di bawah umur</h2>
-<p>Aplikasi ini ditujukan untuk pengguna dewasa. Jika seorang anak di bawah umur menggunakannya, lakukan dengan
-pengetahuan dan persetujuan wali. Kami tidak menjalankan iklan personal yang menargetkan anak di bawah umur.</p>
+<h2>5. Penyimpanan, pembagian, dan perlindungan informasi</h2>
+<ul>
+  <li>Lokasi dan lama penyimpanan: data perangkat disimpan di direktori privat Aplikasi; data iklan dan analitik yang dikirim melalui jaringan ditangani Google sesuai kebijakannya, dan data yang dikirim Aplikasi ke servernya disimpan paling lama 12 bulan, lalu dihapus atau dianonimkan;</li>
+  <li>Keamanan transmisi: semua permintaan jaringan memakai HTTPS, dan permintaan iklan maupun analitik tidak membawa isi skrip Anda;</li>
+  <li>Lingkup pembagian: kami berbagi dengan pihak ketiga di atas hanya sejauh diperlukan untuk menyediakan iklan, analitik, dan pemecahan masalah, dan kami tidak pernah menjual informasi pribadi Anda; bila diwajibkan oleh hukum atau oleh otoritas berwenang, kami dapat memberikannya dan akan memberi tahu Anda sejauh yang diizinkan;</li>
+  <li>Transfer lintas batas: Google AdMob / Firebase / UMP dapat melibatkan transfer data ke luar negeri (misalnya ke server global Google); kami berpijak pada dokumen ini dan Klausul Kontraktual Standar (SCC) pihak ketiga terkait serta mekanisme kepatuhan lain sebagai dasar transfer.</li>
+</ul>
 
-<h2>6. Perubahan kebijakan ini</h2>
-<p>Ketika fungsi atau pengolahan data berubah, kami memperbarui halaman ini dan menampilkan versi terbaru di dalam
-aplikasi. Hal-hal yang menambah pengumpulan data, menambah pihak ketiga, atau mengubah tujuan akan disorot sebelum
-berlaku.</p>
+<h2>6. Kontrol dan hak Anda</h2>
+<p>Anda dapat mengendalikan informasi Anda dengan cara berikut:</p>
+<ul>
+  <li>Pilihan persetujuan: di layar onboarding terakhir melalui kotak centang; pengguna EEA/Inggris dapat membuat dan mengubah pilihan di antarmuka persetujuan Google (UMP);</li>
+  <li>Matikan iklan terpersonalisasi: atur ulang atau matikan pengenal iklan perangkat (GAID) di pengaturan sistem — Anda tetap akan melihat iklan, hanya saja tidak lagi ditargetkan berdasarkan minat;</li>
+  <li>Hentikan analitik: tolak persetujuan, atau hapus data aplikasi lalu pilih "tolak" lagi, untuk mematikan analitik Firebase;</li>
+  <li>Blokir jaringan: larang akses jaringan Aplikasi di "Manajemen aplikasi" sistem — iklan tidak akan dapat dimuat dan data runtime tidak dapat dikirim, tetapi skrip dan eksekusi Anda di perangkat tidak terpengaruh;</li>
+  <li>Hapus data perangkat: hapus skrip tertentu di dalam Aplikasi, atau gunakan "Setelan → Aplikasi → Penyimpanan → Hapus data" untuk menghapus semuanya sekaligus; mencopot Aplikasi juga akan menghapusnya.</li>
+</ul>
+<p>Hak subjek data GDPR (untuk pengguna di EEA): Anda berhak mengakses, memperbaiki, dan menghapus data pribadi Anda, membatasi atau menentang pemrosesannya, meminta portabilitas data, dan menarik persetujuan Anda kapan pun (penarikan tidak memengaruhi pemrosesan yang telah dilakukan sebelum penarikan),
+serta berhak mengajukan pengaduan kepada otoritas pengawas perlindungan data di negara tempat tinggal Anda. Untuk menggunakan hak-hak ini atau menarik persetujuan, kirim email ke <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> dan sertakan nomor versi aplikasi (lihat "Setelan → Versi").</p>
 
-<h2>7. Kontak</h2>
-<p>Untuk pertanyaan tentang kebijakan ini, atau untuk menggunakan hak akses, koreksi, dan penghapusan Anda, kirim
-email ke pengembang di <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, sertakan versi aplikasi
-(lihat “Pengaturan → Versi”).</p>
+<h2>7. Anak di bawah umur</h2>
+<p>Aplikasi ini ditujukan untuk pengguna dewasa. Jika Anda menggunakannya pada perangkat anak di bawah umur, lakukanlah dengan sepengetahuan dan persetujuan wali; kami tidak melakukan penargetan iklan terpersonalisasi yang menyasar anak di bawah umur.</p>
 
-<!-- ============================ Part 2: Terms of Service ============================ -->
+<h2>8. Pembaruan dokumen ini</h2>
+<p>Ketika fitur atau praktik penanganan data berubah, kami memperbarui halaman ini dan menampilkan versi terbaru di dalam Aplikasi. Untuk perubahan yang menambah pengumpulan data, menambah pihak ketiga, atau mengubah tujuan, kami memberi pemberitahuan mencolok sebelum berlaku dan, bila perlu, meminta persetujuan Anda kembali.</p>
+
+<h2>9. Hubungi kami</h2>
+<p>Jika ada pertanyaan tentang dokumen ini, atau Anda perlu menggunakan hak seperti akses, perbaikan, penghapusan, atau penarikan persetujuan, kirim email ke pengembang di <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> dan sertakan nomor versi aplikasi (lihat "Setelan → Versi").</p>
+
+<!-- ============================ Bagian 2: Ketentuan Layanan ============================ -->
 <h2 class="doc-title" id="terms">Ketentuan Layanan</h2>
-<p class="meta">Berlaku sejak: September 2026 | Produk: Auto Touch (aplikasi ini) | Aplikasi ini <strong>membutuhkan koneksi jaringan</strong></p>
+<p class="meta">Tanggal berlaku: September 2026 | Produk: Auto Touch</p>
 
-<p>Auto Touch adalah alat yang menjalankan <strong>otomatisasi antarmuka di perangkat</strong>. Aplikasi ini
-ditawarkan <strong>secara gratis dan dibiayai oleh iklan</strong>, dan membutuhkan koneksi jaringan agar berfungsi
-sepenuhnya. Dengan mengunduh, menginstal, atau menggunakan aplikasi ini, Anda menegaskan telah membaca dan menerima
-ketentuan ini.</p>
+<p>Dengan menekan "Mulai" di layar onboarding peluncuran pertama, Anda menyatakan telah membaca dan menyetujui Ketentuan ini; Anda dapat berhenti menggunakan dan mencopot Aplikasi kapan pun. Aplikasi ini adalah alat otomatisasi layar di perangkat,
+beroperasi dengan model "gratis + iklan", dan memerlukan koneksi jaringan untuk menyediakan kapabilitas ini secara penuh.</p>
 
-<h2>1. Apa yang dilakukan aplikasi</h2>
-<p>Aplikasi ini merekam dan menyimpan sekumpulan aksi di ponsel Anda — ketuk berdasarkan koordinat, ketuk berdasarkan
-teks widget, gesek, Beranda, dan Kembali — lalu memutarnya ulang sesuai urutan dan tunda yang Anda atur. Aplikasi ini
-<strong>tidak pernah melakukan aksi yang tidak Anda atur</strong>, dan tidak menyediakan konten, transaksi, maupun
-layanan yang dikelola atas nama Anda.</p>
-<p>Semua fitur gratis. <strong>Tidak ada yang ditagih, tidak ada langganan, dan tidak ada yang dibuka lewat
-pembayaran.</strong> Jika Anda melihat entri di dalam aplikasi yang mengklaim bahwa membayar akan “membuka kunci
-skrip” atau “mempercepat eksekusi”, itu adalah konten iklan yang menyesatkan — jangan dipercaya.</p>
+<h2>1. Yang kami sediakan</h2>
+<p>Aplikasi ini menyediakan hal berikut: di ponsel Anda, ia merekam dan menyimpan sekumpulan skrip operasi (ketuk berdasarkan koordinat, ketuk berdasarkan teks kontrol, geser, tombol Home, tombol Back) dan menjalankannya secara otomatis dalam urutan dan jeda yang Anda susun.
+Aplikasi ini tidak melakukan tindakan apa pun yang belum Anda susun, dan tidak menyediakan konten, transaksi, atau layanan pengelolaan atas nama Anda.</p>
+<p>Semua fitur Aplikasi ini gratis; tidak ada biaya, langganan, maupun buka kunci berbayar. Jika Anda melihat di dalam aplikasi pintu masuk yang mengklaim "buka skrip dengan membayar" atau "percepat eksekusi", itu adalah konten iklan yang menyesatkan — jangan dipercaya.</p>
 
-<h2>2. Penggunaan jaringan dan iklan</h2>
+<h2>2. Jaringan dan iklan</h2>
 <ul>
-  <li>untuk menjaga aplikasi tetap gratis, aplikasi ini <strong>menampilkan iklan</strong>, yang disediakan dan ditempatkan oleh platform iklan pihak ketiga;</li>
-  <li>memuat iklan dan melaporkan diagnostik waktu jalan <strong>membutuhkan koneksi jaringan</strong>; cakupan data persisnya dijelaskan dalam Kebijakan Privasi di halaman ini;</li>
-  <li>Anda dapat mengatur ulang atau mematikan pengidentifikasi iklan perangkat di pengaturan sistem untuk mengurangi penayangan personal; memblokir akses jaringan aplikasi ini di pengaturan sistem menghentikan pemuatan iklan, tetapi skrip lokal Anda tetap dapat digunakan;</li>
-  <li>layanan iklan dan analitik pihak ketiga bertanggung jawab atas konten, ketersediaan, dan syarat mereka sendiri; transaksi atau perselisihan Anda dengan mereka bukan tanggung jawab aplikasi ini;</li>
-  <li><strong>jangan klik iklan menyesatkan untuk membayar atau mengunduh apa pun</strong> — aplikasi ini tidak memiliki mekanisme pembayaran semacam itu.</li>
+  <li>Agar tetap gratis, Aplikasi menampilkan iklan yang disediakan dan dikirim oleh Google AdMob;</li>
+  <li>Iklan ditampilkan entah Anda menyetujui personalisasi atau tidak: menyetujui mengirim iklan terpersonalisasi dan mengaktifkan analitik, menolak hanya mengirim iklan non-pribadi dan tidak mengaktifkan analitik. Lingkup datanya diuraikan di Kebijakan Privasi pada halaman ini;</li>
+  <li>Memuat iklan memerlukan koneksi jaringan; menolak persetujuan tidak mematikan iklan maupun memengaruhi penggunaan skrip Anda di perangkat;</li>
+  <li>Konten, ketersediaan, dan ketentuan layanan iklan serta analitik pihak ketiga adalah tanggung jawab pihak ketiga itu; transaksi atau perselisihan antara Anda dan mereka tidak terkait dengan Aplikasi;</li>
+  <li>Jangan klik iklan yang menyesatkan untuk membayar atau mengunduh — Aplikasi tidak memiliki mekanisme buka kunci berbayar semacam itu sama sekali.</li>
 </ul>
 
-<h2>3. Tanggung jawab Anda dan penggunaan yang wajar</h2>
-<p>Gunakan aplikasi ini dalam batas yang diizinkan hukum dan tanggung sendiri konsekuensi penggunaan Anda. Anda berkomitmen untuk tidak menggunakan aplikasi ini untuk:</p>
+<h2>3. Penggunaan yang dapat diterima</h2>
+<p>Anda harus menggunakan Aplikasi ini dalam batas yang diizinkan hukum dan menanggung sendiri akibat dari penggunaan Anda. Anda setuju untuk tidak menggunakan Aplikasi ini untuk:</p>
 <ul>
-  <li>memborong tiket atau stok, membuat akun palsu, menyukai/mengikuti secara massal, atau dengan cara lain <strong>mengganggu keteraturan normal produk lain</strong>;</li>
-  <li>melecehkan orang lain, mengirim pesan tidak relevan secara massal, atau melanggar hak orang lain;</li>
-  <li>melewati pemeriksaan keamanan aplikasi lain, atau mengakses data atau fitur yang dilarang oleh ketentuan mereka;</li>
-  <li>menguras pendapatan iklan aplikasi ini dengan itikad jahat melalui klik atau tayangan yang diotomasi skrip;</li>
-  <li>mendekompilasi, merekayasa balik, atau mendistribusikan ulang aplikasi ini, atau menghapus atau mengubah branding dan penempatan iklannya.</li>
+  <li>mengganggu keteraturan normal produk lain, seperti borong tiket/barang, pendaftaran palsu, suka atau ikuti secara massal, atau alat curang;</li>
+  <li>mengganggu orang lain, mengirim pesan tidak relevan secara massal, atau melanggar hak orang lain;</li>
+  <li>membelokan pemeriksaan keamanan aplikasi lain, atau mengakses data atau fitur yang dilarang oleh ketentuan mereka;</li>
+  <li>menguras pendapatan iklan Aplikasi secara jahat dengan skrip yang memalsukan klik atau impresi;</li>
+  <li>membajak, melakukan rekayasa balik, atau mendistribusikan ulang Aplikasi, atau menghapus maupun mengubah merek dan tampilan iklan Aplikasi.</li>
 </ul>
-<p class="note">Kebanyakan aplikasi melarang skrip otomatisasi dan alat eksternal dalam ketentuan layanan mereka
-sendiri. Sebelum menggunakan aplikasi ini, pastikan aplikasi target mengizinkan operasi otomatis; jika tidak, Anda
-sendiri yang menanggung risiko akun atau kehilangan data yang timbul.</p>
+<p class="note">Sebagian besar ketentuan layanan aplikasi melarang skrip otomatisasi dan alat eksternal. Sebelum menggunakan Aplikasi ini, pastikan terlebih dahulu bahwa aplikasi target mengizinkan operasi otomatis; jika tidak, Anda menanggung sendiri akibat yang timbul, seperti risiko akun atau kehilangan data.</p>
 
-<h2>4. Batasan penggunaan dan risiko</h2>
+<h2>4. Risiko dan penyangkalan</h2>
 <ul>
-  <li>aplikasi ini bergantung pada layanan aksesibilitas sistem, yang Anda aktifkan sendiri di pengaturan sistem; pencabutan izin menghentikan semua kemampuan;</li>
-  <li>skrip diputar ulang berdasarkan koordinat dan teks, sehingga desain ulang, dialog tak terduga, atau resolusi yang berbeda dapat mengirim ketukan ke tempat yang salah. <strong>Jangan</strong> menjalankannya di layar yang tidak dapat dibatalkan seperti pembayaran, transfer, atau penghapusan data;</li>
-  <li>jalankan panjang tanpa pengawasan dapat memicu kebijakan anti-kecurangan sistem atau aplikasi lain; mulailah dengan jumlah pengulangan kecil untuk memverifikasi;</li>
-  <li>aplikasi ini membutuhkan koneksi jaringan; berjalan di data seluler dapat menimbulkan biaya trafik, yang menjadi tanggungan Anda;</li>
-  <li>aplikasi ini disediakan “apa adanya”, tanpa jaminan tersurat maupun tersirat mengenai ketersediaan atau akurasi, dan kami tidak bertanggung jawab atas kerugian tidak langsung.</li>
+  <li>Aplikasi ini bergantung pada "Layanan Aksesibilitas" sistem, yang Anda aktifkan sendiri di pengaturan sistem; mematikan izin tersebut menghentikan seluruh kemampuan;</li>
+  <li>Skrip berjalan berdasarkan koordinat dan teks, sehingga redesain UI, pop-up yang menutupi, atau perubahan resolusi dapat menyebabkan ketukan pada tempat yang salah. Jangan jalankan di halaman yang tak dapat dibatalkan seperti pembayaran, transfer uang, atau penghapusan data;</li>
+  <li>Otomatisasi yang berjalan lama dapat memicu kontrol risiko sistem atau aplikasi lain; kami sarankan memvalidasi terlebih dahulu dengan jumlah pengulangan kecil;</li>
+  <li>Aplikasi ini memerlukan koneksi jaringan, dan menjalankannya lewat data seluler dapat menimbulkan biaya lalu lintas data, yang menjadi tanggungan Anda;</li>
+  <li>Aplikasi ini disediakan "sebagaimana adanya", tanpa jaminan ketersediaan atau akurasi baik tersurat maupun tersirat, dan tanpa tanggung jawab atas kerugian tidak langsung.</li>
 </ul>
 
 <h2>5. Data dan pencadangan</h2>
-<p>Skrip yang Anda buat tetap di <strong>perangkat Anda</strong> dan milik Anda. Aplikasi ini tidak memikul kewajiban
-pencadangan: mengganti perangkat, menghapus data aplikasi, atau mencabut instalasi akan menghapus semua skrip.
-Bagaimana data diproses (termasuk apa yang mungkin dilaporkan untuk iklan atau analitik) dijelaskan dalam Kebijakan
-Privasi di halaman ini.</p>
+<p>Skrip yang Anda buat hanya disimpan di perangkat dan menjadi milik Anda. Aplikasi ini tidak memiliki kewajiban pencadangan: mengganti perangkat, menghapus data, atau mencopot Aplikasi akan menghilangkan semua skrip. Penanganan data skrip (termasuk apa, jika ada, yang dikirim untuk iklan dan analitik) diuraikan di Kebijakan Privasi pada halaman ini.</p>
 
 <h2>6. Kekayaan intelektual</h2>
-<p>Hak kekayaan intelektual atas kode, desain antarmuka, dan materi aplikasi ini — selain konten pengguna — milik
-pengembang atau pemegang hak terkait. Konten skrip yang Anda buat dengan aplikasi ini milik Anda atau pemegang hak
-aslinya.</p>
+<p>Kekayaan intelektual atas program Aplikasi, desain antarmuka, dan materi terkait selain konten pengguna adalah milik pengembang atau pemilik hak masing-masing. Hak atas konten skrip yang Anda buat menggunakan Aplikasi ini adalah milik Anda atau pemilik hak aslinya.</p>
 
-<h2>7. Perubahan dan penghentian ketentuan ini</h2>
-<p>Kami dapat merevisi ketentuan ini karena perubahan fungsi, perubahan model komersial, atau tuntutan hukum;
-ketentuan yang direvisi berlaku saat diterbitkan di halaman ini, dan perubahan material akan disorot di dalam
-aplikasi. Jika Anda tidak setuju dengan sebuah perubahan, hentikan penggunaan dan cabut instalasi aplikasi. Anda
-dapat berhenti menggunakan aplikasi ini kapan saja; klausul tentang batasan penggunaan, penyangkalan tanggung
-jawab, dan kekayaan intelektual tetap berlaku setelah penghentian.</p>
+<h2>7. Perubahan dan penghentian Ketentuan ini</h2>
+<p>Kami dapat memperbarui Ketentuan ini karena perubahan fitur, perubahan model bisnis, atau tuntutan hukum; Ketentuan yang diperbarui berlaku begitu dipublikasikan di halaman ini, dan perubahan penting diberitahukan secara mencolok di dalam Aplikasi. Jika Anda tidak setuju dengan perubahan tersebut, hentikan penggunaan dan copot Aplikasi.
+Anda dapat berhenti menggunakan Aplikasi kapan pun; klausul tentang pembatasan penggunaan, penyangkalan, dan kekayaan intelektual tetap berlaku setelah penghentian Ketentuan ini.</p>
 
 <h2>8. Kontak</h2>
-<p>Untuk pertanyaan tentang ketentuan ini, kirim email ke pengembang di
-<a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, sertakan versi aplikasi
-(lihat “Pengaturan → Versi”).</p>
+<p>Jika ada pertanyaan tentang Ketentuan ini, kirim email ke pengembang di <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> dan sertakan nomor versi aplikasi (lihat "Setelan → Versi").</p>
 
 </body>
 </html>

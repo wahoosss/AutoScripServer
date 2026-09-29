@@ -5,13 +5,27 @@
     This is the source of the copy that goes on the public host, not an assets-local file; edit here and redeploy.
 
     Maintenance rule:
-    - This app is free and ad-financed and it does use the network; ads and diagnostics are stated in the present tense,
+    - Compliance baseline: this app is distributed via **Google Play**, and privacy compliance follows
+      **Google Play policies + GDPR (EEA/UK)**;
+    - this app is a free, ad-financed, networked tool; ads and diagnostics are stated in the present tense,
       third-party SDKs are disclosed on this page;
+    - consent model (must match the code, do not reword): the last onboarding screen shows this document with a
+      **pre-checked box**; the user **actively tapping "Get Started" = consent**, unchecking = decline.
+      **Declining still shows non-personalized ads** (ad requests still send device/network/ad identifiers to Google
+      for delivery and anti-fraud), but **Firebase analytics stays off** and every on-device feature keeps working.
+      **EEA/UK users** additionally choose via Google's User Messaging Platform (UMP), and that choice prevails;
     - index_zh.html (Chinese) is the AUTHORITATIVE wording and this file mirrors it section by section — when the
       Chinese changes, update this AND every other language copy (index_ja/ko/de/pt/es/id/fr.html) in the same
       commit, never half of it;
-    - whenever a new data processor (ad / analytics SDK) is actually integrated, add its name, data scope and official
-      privacy-policy link here (and in every language copy) BEFORE deploying the release.
+    - whenever a new data processor (ad / analytics / consent-management SDK) is actually integrated, add its name,
+      data scope and official privacy-policy link here (and in every language copy) BEFORE deploying the release;
+    - verified SDK links (WebFetch-checked, do not fabricate): Google privacy https://policies.google.com/privacy,
+      Google ads personalization https://policies.google.com/technologies/ads, Firebase privacy & security
+      https://firebase.google.com/support/privacy (note: https://firebase.google.com/policies is 404, do not use);
+    - style: use <strong> only for genuine key promises (no bold walls); the privacy section order is fixed as
+      "0 at-a-glance → 1 consent → 2 collection → 3 accessibility → 4 third-party SDKs → 5 storage/sharing →
+      6 rights → 7 minors → 8 updates → 9 contact" — the at-a-glance card and the accessibility section are the
+      two reassurance blocks users care about most, never push them further down;
     - Palette follows the app's dark theme (ui_bg_window #121212 / ui_text_primary #FFFFFF / ui_primary #4CAF50).
 -->
 <html lang="en">
@@ -44,9 +58,20 @@
     color: #AAAAAA;
     font-size: 13px;
   }
+  /* 30-second at-a-glance card so users get the gist without reading the whole text */
+  .summary {
+    margin: 16px 0 4px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #1C1F22;
+    border-left: 3px solid #4CAF50;
+  }
+  .summary h2 { margin: 0 0 6px; font-size: 15px; }
+  .summary ul { margin: 0; padding-left: 18px; }
+  .summary li { color: #DDDDDD; margin: 6px 0; }
   strong { color: #4CAF50; }
   a { color: #4CAF50; }
-  /* in-page navigation: jump to the start of each document */
+  /* in-page nav: jump to the start of each document */
   .nav {
     display: flex;
     flex-wrap: wrap;
@@ -58,7 +83,7 @@
     font-size: 14px;
   }
   .nav a { text-decoration: none; }
-  /* big title per document; the underline separates the two documents */
+  /* main heading of each document, underlined to separate the two */
   .doc-title {
     font-size: 18px;
     margin: 34px 0 10px;
@@ -71,7 +96,7 @@
 <body>
 
 <h1>Privacy Policy &amp; Terms of Service</h1>
-<p class="meta">Product: Auto Touch (this app) | This app <strong>requires a network connection</strong></p>
+<p class="meta">Product: Auto Touch (hereinafter "the App")｜Distributed via Google Play｜The App requires a network connection</p>
 
 <nav class="nav">
   <a href="#privacy">Privacy Policy</a>
@@ -80,144 +105,159 @@
 
 <!-- ============================ Part 1: Privacy Policy ============================ -->
 <h2 class="doc-title" id="privacy">Privacy Policy</h2>
-<p class="meta">Effective: September 2026 | Product: Auto Touch (this app) | This app <strong>requires a network connection</strong></p>
+<p class="meta">Effective date: September 2026｜Product: Auto Touch</p>
 
-<p>Auto Touch is an on-device UI automation tool. It is offered <strong>free of charge and financed by advertising</strong>:
-the app connects to the network to load ads and to report the minimal diagnostics needed to keep it running.
-Please read this policy before use; continuing to use the app means you accept it.</p>
+<p>The App is a tool that runs on your phone to play back the on-screen automation scripts you build yourself. It operates on a
+"free + ads" basis, so it connects to the network to load ads and, once you consent, reports the minimal runtime statistics and
+crash information. It is distributed via Google Play, and its privacy compliance follows Google Play policies and the EU General
+Data Protection Regulation (GDPR). Here is a quick summary first, then the details.</p>
 
-<h2>1. What we collect and why</h2>
+<div class="summary">
+  <h2>0. 30-second at a glance</h2>
+  <ul>
+    <li>The scripts you build (tap positions, coordinates, text, durations, loop counts, script names) are<strong>stored on your device only</strong>, never uploaded, and never used for ad targeting.</li>
+    <li>The App stays free through Google AdMob ads, which use device, network and advertising-identifier (GAID) information.</li>
+    <li>On first launch you can consent or decline: consent = personalized ads + analytics on; decline = non-personalized ads only, analytics off. <strong>Either way, every on-device feature keeps working.</strong></li>
+    <li>We do not collect your contacts, SMS, call logs, photos or precise location, and we never read passwords or payment details you type in other apps.</li>
+  </ul>
+</div>
 
-<h3>1.1 Script data: stays on your device</h3>
-<p>The taps and swipes you mark, their coordinates, durations, start delays, loop counts, plus the script name and
-description you type yourself, are written to the <strong>app-private storage</strong> of your device. They are
-<strong>never uploaded</strong> and are never used to target ads. Uninstalling the app deletes them.</p>
-
-<h3>1.2 Data required to serve ads and keep the app working</h3>
-<p>To load ads, measure feature availability and diagnose crashes, we collect:</p>
+<h2>1. How we obtain your consent</h2>
+<p>On first launch, the App shows this document on the last onboarding screen with a pre-checked confirmation box. Your consent is based on <strong>the act of you actively tapping "Get Started"</strong>, not on any default state:</p>
 <ul>
-  <li><strong>Device and app information</strong>: model, brand, OS version, screen resolution and density, app version, language and region;</li>
-  <li><strong>Network information</strong>: connection type (Wi-Fi / cellular), coarse region derived from the IP address (the full IP is not stored);</li>
-  <li><strong>Advertising identifier</strong>: the device advertising identifier used for ad delivery and attribution. You can reset or disable it in system settings;</li>
-  <li><strong>Usage and diagnostic information</strong>: how often features are used, success/failure result codes of script runs, crash stacks and where they happened.</li>
+  <li><strong>Leave it checked and tap "Get Started" = consent</strong>: personalized ads and Google Firebase analytics are enabled;</li>
+  <li><strong>Uncheck it, then tap "Get Started" = decline</strong>: analytics stays off and your usage and crash data are not collected; to keep the App free, ads are still shown, but only non-personalized ones;</li>
+  <li>Consenting or declining does not affect recording or running scripts — all on-device features of the App remain fully usable.</li>
 </ul>
-<p>None of the above includes your contacts, SMS, call logs, photo library or precise location, and it never includes
-passwords or payment details you type into other apps.</p>
+<p class="note">About "non-personalized ads": to request and display an ad, the ad SDK still sends device, network and advertising-identifier information to Google for ad delivery, frequency capping, attribution and anti-fraud.
+That information is not used to build a profile of your interests or for personalized targeting. "Non-personalized" limits how ads are targeted; it is not a zero-data mode.</p>
+<p>Users in the European Economic Area (EEA) and the UK: you will additionally see a standard consent interface provided by Google (the User Messaging Platform, UMP). Your choice there takes precedence over the checkbox above and
+directly decides whether ads are personalized and whether analytics is enabled, and you can change it at any time in that interface or in system settings.</p>
 
-<h3>1.3 Advertising</h3>
-<p>Ads shown in the app are provided and placed by third-party ad platforms. For frequency capping, attribution and
-fraud detection, the ad SDK processes the device and network data listed in 1.2 under its own privacy policy.
-Ad content <strong>does not read</strong> your scripts or coordinates.</p>
+<h2>2. What information we collect and what it is used for</h2>
 
-<h3>1.4 How third-party SDKs are disclosed</h3>
-<p>Every advertising or analytics SDK integrated into this app is listed on this page — name, data scope and a link to
-its official privacy policy — before it ships in a release.
-<strong>A third party that does not appear on this page is not running inside this app.</strong> List updates are published together with the app version.</p>
+<h3>2.1 Script data: stays on your device</h3>
+<p>The tap/swipe positions, coordinates, durations, delays, loop counts you mark in the floating window, and the script names and descriptions you fill in yourself, are all written to the App's private directory on your device.
+They are not uploaded and are not used for ad targeting. Uninstalling the App deletes them.</p>
 
-<h2>2. The accessibility permission and what it can see</h2>
-<p>Auto Touch needs the system Accessibility service permission in order to read widget labels and to perform taps and
-swipes at the positions you set. This permission:</p>
+<h3>2.2 Information used for ad delivery (happens whether or not you consent to personalization)</h3>
+<p>To load and serve ads and to perform deduplication, attribution and anti-fraud, the ad SDK (Google AdMob) processes the following:</p>
 <ul>
-  <li>is granted by you in system settings and can be revoked there at any time; once it is off, all automation stops immediately;</li>
-  <li>is used only to run <strong>the scripts you composed yourself</strong>; the app does not browse, record or upload the content of other apps on its own;</li>
-  <li>is not used to recognise, log or upload sensitive content such as passwords or payment information that you enter in other apps.</li>
+  <li>Device and app information: device model, brand, OS version, screen resolution and pixel density, app version, language and region;</li>
+  <li>Network information: network type (Wi‑Fi / cellular), the rough region derived from the IP (the full IP is not stored);</li>
+  <li>Advertising identifier: the device advertising ID (GAID) used for ad delivery and attribution, which you can reset or turn off in system settings.</li>
 </ul>
-<p class="note">Recommendation: do not run automation on pages involving payments, banking or identity verification.
-Script coordinates are stored on your device — keep that in mind when you share the device or restore a backup.</p>
+<p>When you consent, Google may use the above for personalized targeting; when you decline, ads are served non-personally (see section 1). Ad content does not read your script content or coordinates.</p>
 
-<h2>3. Storage, sharing and protection</h2>
+<h3>2.3 Information used for analytics and crash diagnosis (collected only after you consent)</h3>
+<p>Only after you make a consent choice as described in section 1 (for EEA/UK users, consenting to analytics in the UMP interface) does the App enable Google Firebase Analytics, which then collects:</p>
 <ul>
-  <li><strong>Where and how long</strong>: on-device data lives in app-private storage; data reported over the network is kept on the server for at most 12 months, then deleted or anonymised;</li>
-  <li><strong>Transport security</strong>: all network requests use HTTPS, and ad or analytics requests never carry your script content;</li>
-  <li><strong>Scope of sharing</strong>: we share data with third parties only as far as advertising, analytics and troubleshooting require, and we do not sell your personal information. We may disclose data where the law compels us to, and we will notify you where that is permitted;</li>
-  <li><strong>Cross-border transfers</strong>: if a third-party service involves transfers outside your region, we will state it separately on this page when it is integrated and ask for your consent.</li>
+  <li>Usage information: events such as feature-tap counts and the success/failure result codes of script runs;</li>
+  <li>Diagnostic information: crash stacks and where they occur, for stability troubleshooting.</li>
 </ul>
+<p>If you decline, Firebase is never initialized and none of the above usage and crash data leaves your device — not a single byte.</p>
 
-<h2>4. Your controls</h2>
+<h2>3. The Accessibility permission: why it is needed, and what it does not do</h2>
+<p>The App needs the system "Accessibility service" permission to perform automatic taps and swipes — the common way automation tools of this kind implement clicks. About this permission, please note:</p>
 <ul>
-  <li>Delete individual scripts inside the app, or clear all local data via “Settings → Apps → Storage → Clear data”;</li>
-  <li>Revoke the accessibility permission at any time in system settings;</li>
-  <li>Reset or disable the device advertising identifier to opt out of interest-based ads (you will still see ads, just not personalised ones);</li>
-  <li>Blocking network access for this app in system settings prevents ads from loading and diagnostics from being reported; your local scripts keep working.</li>
+  <li>You enable it yourself in system settings and can turn it off in the same place at any time; once off, the App immediately loses all automation ability;</li>
+  <li>The App uses it only to run <strong>the scripts you build yourself</strong>; it does not silently scan, record or upload the screen content of other apps in the background;</li>
+  <li>Sensitive content you type in other apps — passwords, payment details and the like — is not recognized, recorded or uploaded by the App.</li>
+</ul>
+<p class="note">Recommendation: do not run automation scripts on pages involving payment, banking or identity verification; script coordinates are stored on your device, so please be mindful of any information they may contain when you share or back up your phone.</p>
+
+<h2>4. List of third-party SDKs</h2>
+<p>Every third-party SDK the App integrates is listed below, each in a single sentence covering "who it is, what data it handles, and what it is for"; the full and current handling is governed by each provider's official privacy policy (follow the link to view it).
+<strong>Any third party not shown on this page does not run in the App</strong>, and updates to this list ship with app updates.</p>
+<ul>
+  <li><strong>Google AdMob (Google Mobile Ads SDK)</strong>: serves ads; handles device and network information and the advertising identifier (GAID) for delivery, deduplication, attribution and anti-fraud; personalized when you consent, non-personalized when you decline, and you can reset or turn off the ad identifier in system settings. See <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a> and <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
+  <li><strong>Google Firebase Analytics</strong>: enabled only after you consent; collects usage and crash events and some device information for feature-usability statistics and stability troubleshooting; never initialized or uploading if you decline. See <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
+  <li><strong>Google User Messaging Platform (UMP)</strong>: shows EEA/UK users a compliant consent interface and records and passes on your consent choices for AdMob and Firebase to read; handles basic device and app information and an approximate region. See <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
+  <li><strong>Google Play Services</strong>: provides underlying platform capabilities such as the advertising identifier (GAID), from which the App reads the ad ID. See <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>.</li>
 </ul>
 
-<h2>5. Minors</h2>
-<p>This app is intended for adult users. If a minor uses it, do so with the knowledge and consent of a guardian.
-We do not run personalised advertising aimed at minors.</p>
+<h2>5. Storage, sharing and protection of information</h2>
+<ul>
+  <li>Where and how long: on-device data lives in the App's private directory; ad and analytics data reported over the network is handled by Google per its policies, and data the App reports to its server is kept for at most 12 months, then deleted or anonymized;</li>
+  <li>Transmission security: all network requests use HTTPS, and ad and analytics requests do not carry your script content;</li>
+  <li>Scope of sharing: we share with the third parties above only as necessary to provide ads, analytics and troubleshooting, and we never sell your personal information; we may disclose information where required by law or by a competent authority, and will notify you to the extent permitted;</li>
+  <li>Cross-border transfer: Google AdMob / Firebase / UMP may involve transferring data abroad (e.g. to Google's global servers); we rely on this document and the relevant third parties' Standard Contractual Clauses (SCC) and other compliance mechanisms as the transfer basis.</li>
+</ul>
 
-<h2>6. Changes to this policy</h2>
-<p>When functionality or data processing changes, we update this page and show the latest version in the app.
-Anything that adds data collection, adds a third party or changes a purpose will be highlighted before it takes effect.</p>
+<h2>6. Your controls and rights</h2>
+<p>You can control your information in the following ways:</p>
+<ul>
+  <li>Consent choice: on the last onboarding screen, via the checkbox; EEA/UK users can make and change their choice in the Google consent interface (UMP);</li>
+  <li>Turn off personalized ads: reset or turn off the device advertising identifier (GAID) in system settings — you will still see ads, just no longer interest-targeted;</li>
+  <li>Stop analytics: decline consent, or clear app data and then choose "decline" again, to disable Firebase analytics;</li>
+  <li>Block networking: disallow the App's network access in system "App management" — ads then cannot load and runtime data cannot be reported, but your on-device scripts and execution are unaffected;</li>
+  <li>Delete on-device data: delete individual scripts in the App, or use "Settings → Apps → Storage → Clear data" to wipe everything at once; uninstalling the App also deletes it.</li>
+</ul>
+<p>GDPR data-subject rights (for users in the EEA): you have the right to access, rectify and erase your personal data, to restrict or object to its processing, to data portability, and to withdraw your consent at any time (withdrawal does not affect processing already carried out before withdrawal),
+and the right to lodge a complaint with the data-protection supervisory authority of your member state of residence. To exercise these rights or withdraw consent, email <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> and include the app version number (see "Settings → Version").</p>
 
-<h2>7. Contact</h2>
-<p>For questions about this policy, or to exercise your rights of access, correction and deletion, email the developer at
-<a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, and include the app version (see “Settings → Version”).</p>
+<h2>7. Minors</h2>
+<p>The App is intended for adult users. If you use it on a minor's device, do so with the parent or guardian informed and consenting; we do not run personalized ad targeting aimed at minors.</p>
+
+<h2>8. Updates to this document</h2>
+<p>When features or data-handling practices change, we update this page and show the latest version in the App. For changes that add data collection, add a third party, or change a purpose, we give prominent notice before they take effect and, where necessary, seek your consent again.</p>
+
+<h2>9. Contact us</h2>
+<p>If you have questions about this document, or need to exercise rights such as access, rectification, erasure or withdrawal of consent, email the developer at <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> and include the app version number (see "Settings → Version").</p>
 
 <!-- ============================ Part 2: Terms of Service ============================ -->
 <h2 class="doc-title" id="terms">Terms of Service</h2>
-<p class="meta">Effective: September 2026 | Product: Auto Touch (this app) | This app <strong>requires a network connection</strong></p>
+<p class="meta">Effective date: September 2026｜Product: Auto Touch</p>
 
-<p>Auto Touch is a tool that runs <strong>on-device UI automation</strong>. It is offered <strong>free of charge and financed by
-advertising</strong>, and it needs a network connection to work in full. By downloading, installing or using the app you
-confirm that you have read and accept these terms.</p>
+<p>By tapping "Get Started" on the first-launch onboarding screen, you confirm that you have read and agree to these Terms; you may stop using and uninstall the App at any time. The App is a tool that provides on-device on-screen automation,
+operating on a "free + ads" basis, and it needs a network connection to provide these capabilities in full.</p>
 
-<h2>1. What the app does</h2>
-<p>The app records and stores a set of actions on your phone — tap at coordinates, tap by widget text, swipe, Home and Back —
-and replays them in the order and with the delays you arranged. It <strong>never performs an action you did not arrange</strong>,
-and it provides no content, no transactions and no managed services on your behalf.</p>
-<p>Every feature is free. <strong>Nothing is charged, there is no subscription and nothing is unlocked behind a payment.</strong>
-If you see an entry inside the app claiming that paying will “unlock scripts” or “speed up execution”, that is misleading ad
-content — do not trust it.</p>
+<h2>1. What we provide</h2>
+<p>The App provides the following: on your phone, it records and saves a set of operation scripts (tap by coordinate, tap by control text, swipe, Home key, Back key) and runs them automatically in the order and with the delays you arrange.
+The App does not perform any action you have not arranged, and it offers no content, transactions or managed services on your behalf.</p>
+<p>All features of the App are free; there are no fees, no subscriptions and no paid unlocks. If you see in-app entry points claiming to "pay to unlock scripts" or "speed up execution", those are deceptive ad content — please do not trust them.</p>
 
-<h2>2. Network use and advertising</h2>
+<h2>2. Networking and ads</h2>
 <ul>
-  <li>to keep the app free, it <strong>shows advertisements</strong>, which are supplied and placed by third-party ad platforms;</li>
-  <li>loading ads and reporting runtime diagnostics <strong>require a network connection</strong>; the exact data scope is described in the Privacy Policy on this page;</li>
-  <li>you can reset or disable the device advertising identifier in system settings to reduce personalised delivery; blocking network access for this app in system settings stops ads from loading but leaves your local scripts usable;</li>
-  <li>third-party ad and analytics services are responsible for their own content, availability and terms; any transaction or dispute you have with them is not attributable to this app;</li>
-  <li><strong>do not click misleading ads to pay or to download anything</strong> — the app has no such payment mechanism.</li>
+  <li>To stay free, the App shows ads provided and served by Google AdMob;</li>
+  <li>Ads are shown whether or not you consent to personalization: consenting serves personalized ads and enables analytics; declining serves only non-personalized ads and keeps analytics off. The data scope is described in the Privacy Policy on this page;</li>
+  <li>Loading ads requires a network connection; declining consent does not turn ads off and does not affect use of your on-device scripts;</li>
+  <li>The content, availability and terms of third-party ad and analytics services are the responsibility of that third party; any transaction or dispute between you and them is unrelated to the App;</li>
+  <li>Do not click deceptive ads to pay or download — the App has no such paid-unlock mechanism whatsoever.</li>
 </ul>
 
-<h2>3. Your responsibilities and acceptable use</h2>
-<p>Use the app within what the law allows and bear the consequences of your own use. You undertake not to use the app to:</p>
+<h2>3. Your acceptable use</h2>
+<p>You should use the App within the limits of the law and bear the consequences of your own use. You agree not to use the App to:</p>
 <ul>
-  <li>mass-buy tickets or inventory, create fake accounts, bulk like/follow, or otherwise <strong>disrupt the normal order of other products</strong>;</li>
-  <li>harass others, send bulk irrelevant messages, or infringe the rights of others;</li>
-  <li>bypass the security checks of other apps, or reach data or features that their terms forbid;</li>
-  <li>maliciously drain the app's ad revenue by scripting clicks or impressions;</li>
-  <li>decompile, reverse-engineer or redistribute the app, or remove or alter its branding and ad placement.</li>
+  <li>tamper with the normal order of other products, such as ticket/item sniping, fake registrations, bulk liking or following, or cheating tools;</li>
+  <li>harass others, send bulk irrelevant messages, or infringe others' rights;</li>
+  <li>circumvent the security checks of other apps, or access data or features forbidden by their terms;</li>
+  <li>maliciously drain the App's ad revenue by scripting fake clicks or impressions;</li>
+  <li>crack, reverse-engineer or redistribute the App, or remove or alter the App's branding and ad display.</li>
 </ul>
-<p class="note">Most apps forbid automation scripts and external tools in their own terms of service. Before using this app,
-check that the target app permits automated operation; otherwise you alone carry the resulting account risk or data loss.</p>
+<p class="note">Most apps' terms prohibit automation scripts and external tools. Before using the App, first confirm that the target app permits automated operation; otherwise you bear any resulting consequences, such as account risk or data loss.</p>
 
-<h2>4. Usage limits and risks</h2>
+<h2>4. Risks and disclaimers</h2>
 <ul>
-  <li>the app depends on the system Accessibility service, which you enable yourself in system settings; revoking the permission stops every capability;</li>
-  <li>scripts replay by coordinates and text, so a redesign, an unexpected dialog or a different resolution can send a tap to the wrong place. Do <strong>not</strong> run them on irreversible screens such as payment, money transfer or data deletion;</li>
-  <li>long unattended runs may trigger the anti-fraud policies of the system or of other apps; start with a small loop count to verify;</li>
-  <li>the app needs a network connection; running it on cellular data may incur traffic charges, which are yours;</li>
-  <li>the app is provided “as is”, with no express or implied warranty of availability or accuracy, and we are not liable for indirect losses.</li>
+  <li>The App relies on the system "Accessibility service", which you enable yourself in system settings; turning the permission off stops all automation;</li>
+  <li>Scripts run by coordinate and text, so a UI redesign, an overlaying pop-up or a resolution change can cause a wrong tap. Do not run them on irreversible pages such as payment, money transfer or data deletion;</li>
+  <li>Long-running automation may trigger the risk controls of the system or of other apps; we suggest validating first with a small loop count;</li>
+  <li>The App needs a network connection, and running it on cellular data may incur data charges, which you bear;</li>
+  <li>The App is provided "as is", with no express or implied warranty of availability or accuracy, and no liability for indirect losses.</li>
 </ul>
 
-<h2>5. Data and backups</h2>
-<p>The scripts you create stay on <strong>your device</strong> and belong to you. The app carries no backup duty: switching
-devices, clearing app data or uninstalling deletes every script. How data is processed (including what may be reported for
-advertising or analytics) is described in the Privacy Policy on this page.</p>
+<h2>5. Data and backup</h2>
+<p>The scripts you create are stored on your device only and belong to you. The App has no backup duty: switching devices, clearing data or uninstalling the App loses all scripts. How script data is handled (including what, if anything, is reported for ads and analytics) is described in the Privacy Policy on this page.</p>
 
 <h2>6. Intellectual property</h2>
-<p>The intellectual property in the app's code, interface design and materials — other than user content — belongs to the
-developer or the corresponding rights holders. The script content you create with the app belongs to you or to its original
-rights holder.</p>
+<p>The intellectual property of the App's program, its interface design and related materials other than user content belongs to the developer or the respective rights holders. The rights to the script content you create using the App belong to you or the original rights holders.</p>
 
-<h2>7. Changes to and termination of these terms</h2>
-<p>We may revise these terms because of feature changes, commercial-model changes or legal requirements; the revised terms
-take effect when published on this page, and material changes will be highlighted inside the app. If you disagree with a
-change, stop using and uninstall the app. You may stop using the app at any time; the clauses on usage limits, disclaimers
-and intellectual property survive termination.</p>
+<h2>7. Changes to and termination of these Terms</h2>
+<p>We may update these Terms due to feature changes, business-model changes or legal requirements; the updated Terms take effect once published on this page, and material changes are given prominent notice in the App. If you disagree with the changes, please stop using and uninstall the App.
+You may stop using the App at any time; the clauses on usage restrictions, disclaimers and intellectual property survive termination of these Terms.</p>
 
 <h2>8. Contact</h2>
-<p>For questions about these terms, email the developer at <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a>, and include the app
-version (see “Settings → Version”).</p>
+<p>If you have questions about these Terms, email the developer at <a href="mailto:wallehu99@gmail.com">wallehu99@gmail.com</a> and include the app version number (see "Settings → Version").</p>
 
 </body>
 </html>
